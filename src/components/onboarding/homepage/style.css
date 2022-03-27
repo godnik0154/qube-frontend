@@ -1,0 +1,290 @@
+.onboarding-homepage-part-heading,
+.onboarding-homepage-part-subheading {
+    text-align: center;
+    color: #4A4A4A;
+}
+
+.onboarding-homepage-part-subheading span {
+    color: unset;
+}
+
+.onboarding-homepage-part-heading {
+    margin-bottom: 2rem;
+}
+
+.onboarding-homepage-part-form {
+    width: 80%;
+    margin: 1rem auto;
+}
+
+.onboarding-homepage-part-subsubheading {
+    font-weight: 400;
+    margin-top: 1rem;
+    text-align: center;
+    color: #4A4A4A;
+}
+
+.onboarding-homepage-part-profilePic {
+    color: transparent;
+    width: fit-content;
+    margin: auto;
+    margin-top: 2rem;
+    transition: all 0.3s ease;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
+
+.onboarding-homepage-part-coverPic {
+    color: transparent;
+    margin: auto;
+    margin-top: 2rem;
+    transition: all 0.3s ease;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
+
+.onboarding-homepage-part-profileInput,
+.onboarding-homepage-part-coverInput {
+    display: none;
+}
+
+.onboarding-homepage-part-profilePic .onboarding-homepage-part-imageArea {
+    position: absolute;
+    object-fit: cover;
+    width: 165px;
+    height: 165px;
+    background-size: cover;
+    background-position: center;
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(0, 133, 255, 0.22);
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, .35);
+    border-radius: 100px;
+    z-index: 0;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    -ms-border-radius: 100px;
+    -o-border-radius: 100px;
+}
+
+.onboarding-homepage-part-coverPic .onboarding-homepage-part-imageArea {
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 165px;
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(0, 133, 255, 0.22);
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, .35);
+    border-radius: 6px;
+    z-index: 0;
+}
+
+.onboarding-homepage-part-profileiconLabel {
+    cursor: pointer;
+    height: 165px;
+    position: relative;
+    width: 165px;
+}
+
+.onboarding-homepage-part-covericonLabel {
+    cursor: pointer;
+    height: 165px;
+    position: relative;
+    width: 100%;
+}
+
+.onboarding-homepage-part-cam-button {
+    position: absolute;
+    opacity: 1;
+    background-color: #0085FF;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all .2s;
+    z-index: 20;
+    outline: none !important;
+    width: 35px;
+    height: 35px;
+    border: none !important;
+    border-radius: 50%;
+}
+
+.onboarding-homepage-part-cam-button i {
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.onboarding-homepage-part-profilePic:hover .onboarding-homepage-part-cam-button,
+.onboarding-homepage-part-coverPic:hover .onboarding-homepage-part-cam-button {
+    opacity: 0;
+}
+
+.onboarding-homepage-part-profilePic:hover .onboarding-homepage-part-profileiconLabel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, .8);
+    z-index: 20;
+    color: #fafafa;
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 100px;
+    margin-bottom: 0;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    -ms-border-radius: 100px;
+    -o-border-radius: 100px;
+    -webkit-transition: background-color 0.2s ease-in-out;
+    -moz-transition: background-color 0.2s ease-in-out;
+    -ms-transition: background-color 0.2s ease-in-out;
+    -o-transition: background-color 0.2s ease-in-out;
+}
+
+.onboarding-homepage-part-coverPic:hover .onboarding-homepage-part-covericonLabel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, .8);
+    z-index: 20;
+    color: #fafafa;
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 6px;
+    margin-bottom: 0;
+    -webkit-transition: background-color 0.2s ease-in-out;
+    -moz-transition: background-color 0.2s ease-in-out;
+    -ms-transition: background-color 0.2s ease-in-out;
+    -o-transition: background-color 0.2s ease-in-out;
+}
+
+.onboarding-homepage-part-profilePic:hover .onboarding-homepage-part-profileSpan,
+.onboarding-homepage-part-coverPic:hover .onboarding-homepage-part-coverSpan {
+    opacity: 1;
+}
+
+.onboarding-homepage-part-profileSpan,
+.onboarding-homepage-part-coverSpan {
+    display: inline-flex;
+    padding: 0.2em;
+    opacity: 0;
+    height: 2em;
+}
+
+/* ---------------------------------------------- */
+
+.onboarding-homepage-part-colors {
+    margin: 2rem auto;
+}
+
+.onboarding-personal-select_wrap {
+    width: fit-content;
+    margin: 15px auto;
+    position: relative;
+    user-select: none;
+}
+
+.onboarding-personal-select_wrap .onboarding-personal-select_default_option {
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    list-style: none;
+    padding-left: 0 !important;
+}
+
+.onboarding-personal-select_wrap .onboarding-personal-select_default_option li {
+    padding: 10px;
+}
+
+
+.onboarding-personal-select_wrap .onboarding-personal-select_select_ul {
+    position: absolute;
+    top: 55px;
+    left: 0;
+    list-style: none;
+    width: 100%;
+    background: #fff;
+    border-radius: 5px;
+    display: none;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+.onboarding-personal-select_wrap .onboarding-personal-select_select_ul li {
+    cursor: pointer;
+}
+
+.onboarding-personal-select_exp{
+    font-size: 1.3rem;
+    margin-left: 1rem;
+    color: #8F8F8F;
+}
+
+.onboarding-personal-select_wrap .onboarding-personal-select_select_ul li:first-child:hover {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.onboarding-personal-select_wrap .onboarding-personal-select_select_ul li:last-child:hover {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.onboarding-personal-select_wrap .onboarding-personal-select_select_ul li:hover {
+    background: rgb(100 171 237 / 12%);
+}
+
+.onboarding-personal-select_wrap .onboarding-personal-select_option-colors {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.onboarding-personal-select_wrap .onboarding-personal-select_option-colors p {
+    margin: auto 5px;
+}
+
+.onboarding-personal-select_li-active {
+    border: 1px solid #8F8F8F;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.onboarding-personal-select_li {
+    border-left: 1px solid #8F8F8F;
+    border-right: 1px solid #8F8F8F;
+    padding: 10px;
+    border-bottom: 1px solid #8F8F8F;
+}
+
+.onboarding-personal-select_wrap .onboarding-personal-select_option-colors .onboarding-personal-select_icon {
+    background-color: #F87369;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+
+.onboarding-personal-select_wrap.active .onboarding-personal-select_select_ul {
+    display: block;
+}
+
+.onboarding-homepage-part-colors-heading {
+    text-align: center;
+}

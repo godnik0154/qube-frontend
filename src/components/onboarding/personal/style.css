@@ -1,0 +1,227 @@
+.onboarding-personal-part-heading {
+    text-align: center;
+    color: #4A4A4A;
+}
+
+.onboarding-personal-part-form {
+    width: 80%;
+    margin: 1rem auto;
+}
+
+.onboarding-personal-part-label {
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+}
+
+.onboarding-personal-part-label .onboarding-personal-part-label-required {
+    color: red;
+    margin-left: 0.5rem;
+}
+
+.onboarding-personal-part-label .onboarding-personal-part-label-opt {
+    margin-left: 0.5rem;
+    font-weight: 400;
+    color: #C4C4C4;
+    font-size: .8rem;
+}
+
+.onboarding-personal-part-input {
+    height: 42px;
+    border: 1px solid #8F8F8F;
+    box-shadow: none !important;
+}
+
+.onboarding-personal-part-inp-grp{
+    margin-bottom: 2rem;
+}
+
+.onboarding-personal-part-character-cnt{
+    font-size: 14px;
+    line-height: 12px;
+    margin-top: 10px;
+    text-align: right;
+    color: #8F8F8F;
+}
+
+.onboarding-personal-part-sub-label{
+    font-weight: 400;
+    color: #4A4A4A;
+}
+
+.onboarding-personal-part-inp-grp ::-webkit-input-placeholder {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.onboarding-personal-part-inp-grp :-ms-input-placeholder {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.onboarding-personal-part-inp-grp ::placeholder {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.onboarding-personal-part0ico-btn{
+    margin-top: 1rem;
+    background: transparent;
+    border: 1px solid #0085FF !important;
+    padding: 3px 8px;
+    border-radius: 6px;
+    outline: none !important;
+    color: #0085FF;
+    font-weight: 600;   
+}
+
+.onboarding-personal-part-soc-inp-grp{
+    margin-top: 1rem;
+    display: flex;
+}
+
+.onboarding-personal-part-soc-dot{
+    flex-grow: .2;
+    display: flex;
+    align-items: flex-start;
+    padding-top: 19px;
+    justify-content: center;
+}
+
+.onboarding-personal-part-soc-dot i{
+    color: #8F8F8F;
+    font-size: 1.3rem;
+}
+
+.onboarding-personal-part-soc-bin{
+    flex-grow: .2;
+    display: flex;
+    align-items: flex-start;
+    padding-top: 19px;
+    justify-content: center;
+}
+
+.onboarding-personal-part-soc-bin i{
+    color: #8F8F8F;
+    font-size: 1.3rem;
+    transition: all .2s;
+}
+
+.onboarding-personal-part-soc-bin:hover i{
+    color: #F87369;
+}
+
+.onboarding-personal-part-soc-inp{
+    flex-grow: .6;
+}
+
+.onboarding-personal-part-sb-par{
+    margin: 10px auto;
+}
+
+.onboarding-personal-part-soc-sel{
+    flex-grow: .05;
+    border: 1px solid #8F8F8F;
+    background-color: #F5F5F5;
+    padding-left: 5px;
+}
+
+.onboarding-personal-part-soc-icons{
+    height: 100%;
+    flex-grow: .5;
+    color: white;
+    background: #F00073;
+    margin-right: 10px;
+    border-radius: 3px;
+}
+
+.onboarding-personal-part-soc-icons-list{
+    width: 18px;
+    margin-right: -21px;
+    outline: none !important;
+    margin-left: 11px;
+    background: none;
+    border: none;
+}
+
+.onboarding-personal-part-soc-inp-nes{
+    border: 1px solid #8F8F8F;    
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.onboarding-personal-part-invalid-feedback{
+    font-weight: 400;
+    font-size: .9rem;
+    color: #ED340B;
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.onboarding-personal-part-bio{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.onboarding-personal-part-soc-inp-break{
+    flex-basis: 100%;
+    height: 0;
+}
+
+.onboarding-personal-part-invalid-feedback i{
+    margin-right: 0.5rem;
+}
+
+@media (max-width: 1400px)
+{
+    .onboarding-personal-part-soc-bin{
+        margin-left: 10px;
+    }
+
+    .onboarding-personal-part-soc-dot{
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 900px)
+{
+  .onboarding-personal-part-form{
+    width: 100%;
+  }
+
+  .onboarding-personal-part-soc-icons{
+      margin-right: 0;
+  }
+}
+
+@media (max-width: 768px)
+{
+    .onboarding-btn-next, .onboarding-btn-prev{
+        width: 40% !important;
+    }
+}
+
+@media (max-width: 500px){
+    .onboarding-personal-part-soc-icons-list{
+        margin-left: 2px;
+    }
+
+    .onboarding-personal-part-soc-icons-list{
+        margin-right: -6px;
+    }
+}
+
+@media (max-width: 400px)
+{
+    .onboarding-btns-group{
+        flex-direction: column;
+    }
+    .onboarding-btn-next, .onboarding-btn-prev{
+        width: 100% !important;
+    }
+
+    .onboarding-btn-next{
+        margin: 1rem 0;
+    }
+}

@@ -1,0 +1,319 @@
+.login-page .login-logo-cont {
+    margin-left: 3rem;
+    margin-top: 1.5rem;
+    width: fit-content;
+    display: inline-block;
+}
+
+.login-page .login-logo-cont .login-logo {
+    height: 2rem;
+}
+
+.login-page .login-image-cont {
+    display: inline-block;
+    width: 20rem;
+    height: 50vh;
+    position: absolute;
+    right: 0;
+}
+
+.login-page .login-image-cont .login-image {
+    height: 100%;
+    width: 100%;
+}
+
+.login-page .login-container {
+    margin-top: 2rem;
+    width: 50%;
+}
+
+.login-page .login-container .login-cont-heading {
+    text-align: center;
+}
+
+.login-page .login-container .login-cont-small-heading {
+    margin: auto;
+    margin-top: 1.1rem;
+    text-align: center;
+    width: 50%;
+    color: #8F8F8F;
+}
+
+
+/* --------------------- Login Google Button --------------------------------- */
+
+.login-google-btn {
+    width: 50%;
+    margin: auto;
+    cursor: pointer;
+    margin-top: 2rem;
+    height: 50px;
+    background-color: #4285f4;
+    border-radius: 10px;
+}
+
+.login-google-btn .login-google-icon-wrapper {
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.login-google-btn .login-google-icon {
+    position: absolute;
+    margin-top: 11px;
+    margin-left: 11px;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+}
+
+.login-google-btn .login-google-btn-text {
+    margin: 11px 11px 0 0;
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+}
+
+
+.login-google-btn:active {
+    background: #1669f2;
+}
+
+/* ------------------------------------------------------------------------- */
+
+.login-divider {
+    overflow: hidden;
+    text-align: center;
+    color: #8F8F8F;
+    width: 50%;
+    margin: auto;
+    margin-top: 2.5rem;
+}
+
+.login-divider:before,
+.login-divider:after {
+    background-color: #8F8F8F;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+}
+
+.login-divider:before {
+    right: 0.5em;
+    margin-left: -50%;
+}
+
+.login-divider:after {
+    left: 0.5em;
+    margin-right: -50%;
+}
+
+.login-form-area {
+    margin-top: 2rem;
+}
+
+/* --------------------- Material Input --------------------------------- */
+
+.login-material-input-parent {
+    position: relative;
+    width: 50%;
+    margin: auto;
+}
+
+.login-material-input-parent .login-material-input {
+    outline: none;
+    border: 2px solid #dadce0;
+    transition: all .2s;
+    padding: 16px 13px;
+    font-size: 18px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.login-material-input-parent .login-material-input:valid + .login-material-input-label {
+    top: -8px;
+    padding: 0 3px;
+    font-size: 14px;
+    color: #C4C4C4;
+}
+
+.login-material-input-parent .login-material-input:focus {
+    border: 2px solid royalblue;
+}
+
+.login-material-input-parent .login-material-input-label {
+    color: #C4C4C4;
+    position: absolute;
+    pointer-events: none;
+    top: 20px;
+    transition: all .2s;
+    left: 13px;
+    background: #ffffff;
+}
+
+.login-material-input-parent .login-material-input:focus + .login-material-input-label {
+    top: -8px;
+    padding: 0 3px;
+    font-size: 14px;
+    color: royalblue;
+}
+
+.login-material-input-helper{
+    width: 50%;
+    margin: auto;
+    font-size: 12px;
+    margin-top: .8rem;
+    color: #8F8F8F;
+}
+
+/* ------------------------------------------------------------- */
+
+.login-submit-area{
+    width: 50%;
+    margin: auto;
+    margin-top: 2rem;
+}
+
+.login-submit-btn{
+    width: 100%;
+    margin-bottom: .5rem;
+    height: 40px;
+    border: none;
+    outline: none;
+    background: #4A4A4A;
+    color: #eee;
+    border-radius: 6px;
+}
+
+.login-small-help{
+    font-size: 14px;
+    text-align: center;
+}
+
+.login-small-help a{
+    color: #4285F4;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media (max-width: 1220px){
+    .login-page .login-container .login-cont-small-heading{
+        width: 60%;
+    }
+
+    .login-google-btn{
+        width: 60%;
+    }
+
+    .login-divider{
+        width: 60%;
+    }
+
+    .login-material-input-parent {
+        width: 60%;
+    }
+
+    .login-material-input-helper{
+        width: 60%;
+    }
+
+    .login-submit-area{
+        width: 60%;
+    }
+}
+
+@media (max-width: 1220px){
+    .login-page .login-container .login-cont-small-heading{
+        width: 70%;
+    }
+
+    .login-google-btn{
+        width: 70%;
+    }
+
+    .login-divider{
+        width: 70%;
+    }
+
+    .login-material-input-parent {
+        width: 70%;
+    }
+
+    .login-material-input-helper{
+        width: 70%;
+    }
+
+    .login-submit-area{
+        width: 70%;
+    }
+}
+
+@media (max-width: 900px){
+    .login-page .login-container .login-cont-small-heading{
+        width: 80%;
+    }
+
+    .login-google-btn{
+        width: 80%;
+    }
+
+    .login-divider{
+        width: 80%;
+    }
+
+    .login-material-input-parent {
+        width: 80%;
+    }
+
+    .login-material-input-helper{
+        width: 80%;
+    }
+
+    .login-submit-area{
+        width: 80%;
+    }
+
+    .login-image-cont{
+        display: none !important;
+    }
+}
+
+@media (max-width: 800px){
+    .login-page .login-container .login-cont-small-heading{
+        width: 100%;
+    }
+
+    .login-google-btn{
+        width: 100%;
+    }
+
+    .login-divider{
+        width: 100%;
+    }
+
+    .login-material-input-parent {
+        width: 100%;
+    }
+
+    .login-material-input-helper{
+        width: 100%;
+    }
+
+    .login-submit-area{
+        width: 100%;
+    }
+
+    .login-image-cont{
+        display: none !important;
+    }
+}
