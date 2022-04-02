@@ -7,7 +7,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { API_URL } from '../../config';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetUserDetails } from '../../redux/user/user.action';
+import { resetUserDetails, setUserDetails } from '../../redux/user/user.action';
 
 function Onboarding() {
   const [formStepsNum, setFormStepsNum] = React.useState(0);
@@ -76,7 +76,6 @@ function Onboarding() {
   }
 
   let handlePostData = async (postData) => {
-    postData.email = localStorage.getItem('email');
     const res = await axios.post(`${API_URL}/onboarding`,postData);
     const data = res.data.data;
 
@@ -84,14 +83,11 @@ function Onboarding() {
       toast.error(data);
     } else {
       toast.success("User Data Updated Successfully");
-      console.log(data);
-      Object.keys(data).forEach(
-        (item) => {
-          if(typeof data[item] === "object" && !Array.isArray(data[item])) data[item] = JSON.stringify(data[item]);
-          localStorage.setItem(item, data[item]);
-        }
-      )
-
+      data.cover = typeof data.cover === 'string'?JSON.parse(data.cover):data.cover;
+      data.profile = typeof data.profile === 'string'?JSON.parse(data.profile):data.profile;
+      data.email = user.email;
+      data.password = user.password;
+      dispatch(setUserDetails(data));
       navigate('/dashboard');
     }
   }
@@ -103,7 +99,7 @@ function Onboarding() {
   }, [formStepsNum]);
 
   let handleNext = async (data) => {
-    let postData = {...finalDataToBack,...data};
+    let postData = {...finalDataToBack,...data,...user};
     setFinalDataToBack(postData)
     if(formStepsNum!=1)
       setFormStepsNum((prevState) => prevState + 1);
@@ -140,7 +136,7 @@ function Onboarding() {
           <i className="fa-regular fa-arrow-right-from-bracket"></i>
         </div>
         <div className="onbaording-cta-text">
-          Logout
+          Sign out
         </div>
       </div>:null}
       <div className="container onboarding-container">
@@ -152,7 +148,7 @@ function Onboarding() {
           >
             <i className="fa-regular fa-user"></i>
           </div>
-          <div className="onboarding-progress-step" data-title="Homepage">
+          <div className="onboarding-progress-step" data-title="Website">
             <svg
               width="19"
               height="18"

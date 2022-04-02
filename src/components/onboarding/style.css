@@ -70,7 +70,7 @@
   display: flex;
   justify-content: space-between;
   counter-reset: step;
-  width: 50%;
+  width: 22%;
   margin: 2rem auto;
   margin-bottom: 3rem;
 }
@@ -187,13 +187,39 @@
 .onboarding-btn-next[disabled]
 {
   background: #C4C4C4;
+  height: 2.5rem;
   color: white;
   width: 30%;
+}
+
+@media (max-width: 1200px)
+{
+  .onboarding-progress-bar{
+    width: 30%;
+  }
+}
+
+@media (max-width: 1000px)
+{
+  .onboarding-progress-bar{
+    width: 40%;
+  }
 }
 
 @media (max-width: 900px)
 {
   .onboarding-form-step{
     width: 85%;
+  }
+
+  .onboarding-progress-bar{
+    width: 45%;
+  }
+}
+
+@media (max-width: 900px)
+{
+  .onboarding-progress-bar{
+    width: 50%;
   }
 }

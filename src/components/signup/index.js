@@ -40,6 +40,8 @@ function Signup() {
     password: ""
   });
 
+  let [showLoader,setShowLoader] = React.useState(false);
+
   let [errors, setErrors] = React.useState({
     email: true,
     password: true
@@ -62,13 +64,15 @@ function Signup() {
   }
 
   let handleClick = async (e) => {
+    setShowLoader(true);
     const res = await axios.post(`${API_URL}/signup`,userData);
     const data = res.data.data;
+    setShowLoader(false);
 
     if(typeof data !== 'object') {
       toast.error(data);
     } else {
-      toast.success("Login Successfully");
+      toast.success("Signup Successfully");
       delete data._id;
       dispatch(setUserDetails(data));
 
@@ -80,6 +84,108 @@ function Signup() {
       }
     }
   }
+
+  function useOutsideAlerter(ref) {
+    React.useEffect(() => {
+
+      function loseFocus(e){
+        let valid = false;
+
+        if(ref.current.name==='password')
+          valid = validPassword(ref.current.value);
+        else
+          valid = validEmail(ref.current.value);
+
+        if(ref.current.value!=''){
+          if(!valid) {
+            ref.current.style.border = '2px solid #e74c3c';
+            ref.current.nextElementSibling.style.color = '#e74c3c';
+            ref.current.nextElementSibling.nextElementSibling.style.display = 'flex';
+            ref.current.nextElementSibling.nextElementSibling.style.color = '#e74c3c';
+            if(ref.current.name==='password')
+              ref.current.nextElementSibling.nextElementSibling.childNodes[1].textContent = 'Please enter at least 6 characters including a letter and a number';
+            else 
+              ref.current.nextElementSibling.nextElementSibling.childNodes[1].textContent = 'Please enter a email';
+          } else {
+            ref.current.style.border = '2px solid #4BB543';
+            ref.current.nextElementSibling.style.color = '#4BB543';
+            ref.current.nextElementSibling.nextElementSibling.style.display = 'flex';
+            ref.current.nextElementSibling.nextElementSibling.style.color = '#4BB543';
+            if(ref.current.name==='password')
+              ref.current.nextElementSibling.nextElementSibling.childNodes[1].textContent = 'Entered password is valid';
+            else 
+              ref.current.nextElementSibling.nextElementSibling.childNodes[1].textContent = 'Entered email is valid';
+          }
+        } else {
+          ref.current.style.border = '2px solid #dadce0';
+          ref.current.nextElementSibling.nextElementSibling.style.display = 'none';
+          ref.current.nextElementSibling.style.color = '#cccac8';
+        }
+      }
+
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+
+          let valid = false;
+
+          if(ref.current.name==='password')
+            valid = validPassword(ref.current.value);
+          else
+            valid = validEmail(ref.current.value);
+
+          if(ref.current.value!=''){
+            if(!valid) {
+              ref.current.style.border = '2px solid #e74c3c';
+              ref.current.nextElementSibling.style.color = '#e74c3c';
+              ref.current.nextElementSibling.nextElementSibling.style.display = 'flex';
+              ref.current.nextElementSibling.nextElementSibling.style.color = '#e74c3c';
+              if(ref.current.name==='password')
+                ref.current.nextElementSibling.nextElementSibling.childNodes[1].textContent = 'Please enter at least 6 characters including a letter and a number';
+              else 
+                ref.current.nextElementSibling.nextElementSibling.childNodes[1].textContent = 'Please enter a email';
+            } else {
+              ref.current.style.border = '2px solid #4BB543';
+              ref.current.nextElementSibling.style.color = '#4BB543';
+              ref.current.nextElementSibling.nextElementSibling.style.display = 'flex';
+              ref.current.nextElementSibling.nextElementSibling.style.color = '#4BB543';
+              if(ref.current.name==='password')
+                ref.current.nextElementSibling.nextElementSibling.childNodes[1].textContent = 'Entered password is valid';
+              else 
+                ref.current.nextElementSibling.nextElementSibling.childNodes[1].textContent = 'Entered email is valid';
+            }
+          } else {
+            ref.current.style.border = '2px solid #dadce0';
+            ref.current.nextElementSibling.nextElementSibling.style.display = 'none';
+            ref.current.nextElementSibling.style.color = '#cccac8';
+          }
+        }
+      }
+
+      let handleFocus = (e) => {
+        ref.current.style.border = '2px solid royalblue';
+        ref.current.nextElementSibling.style.color = 'royalblue';
+        ref.current.nextElementSibling.nextElementSibling.style.display = 'none';
+      }
+
+      document.addEventListener("mousedown", handleClickOutside);
+      ref.current.addEventListener('focus',handleFocus);
+
+      ref.current.addEventListener('keydown',e=>{
+        if(e.keyCode===9){
+          loseFocus(e);
+        }
+      })
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+        ref.current?.removeEventListener('focus',handleFocus);
+      };
+    }, [ref]);
+  }
+
+  const emailRef = React.useRef(null);
+  useOutsideAlerter(emailRef);
+  const passwordRef = React.useRef(null);
+  useOutsideAlerter(passwordRef);
 
   return (
     <>
@@ -110,32 +216,42 @@ function Signup() {
           <div className="login-form-area">
             <div className="login-material-input-parent">
               <input
+                ref = {emailRef}
                 type="email"
                 className="login-material-input"
                 name="email"
+                autoComplete="off"
                 required
                 value={userData.email}
                 onChange={e=>handleChange("email",e.target.value)}
-                style = {userData.email !== '' ?{border: errors.email?"2px solid #e74c3c":"2px solid #4BB543"}:{}}
               />
-              <label htmlFor="inputField" className="login-material-input-label" style = {userData.email?{color: errors.email?"#e74c3c":"#4BB543"}:{}}>
+              <label htmlFor="inputField" className={`login-material-input-label ${userData.email !==''?'login-material-input-label-inval':'login-material-input-label-val'}`}>
                 Email
               </label>
+              <div className="login-invalid-feedback">
+                <i className="fa-regular fa-circle-info"></i>
+                <p className="login-invalid-feedback-text">Please enter a valid email</p>
+              </div>
             </div>
             <div style={{ marginTop: '2rem' }} />
             <div className="login-material-input-parent">
               <input
+                ref = {passwordRef}
                 type="password"
+                autoComplete="off"
                 name="password"
                 className="login-material-input"
                 required
                 value={userData.password}
                 onChange={e=>handleChange("password",e.target.value)}
-                style = {userData.password !== ''?{border: errors.password?"2px solid #e74c3c":"2px solid #4BB543"}:{}}
               />
-              <label htmlFor="inputField" className="login-material-input-label" style = {userData.password?{color: errors.password?"#e74c3c":"#4BB543"}:{}}>
+              <label htmlFor="inputField" className={`login-material-input-label ${userData.password !==''?'login-material-input-label-inval':'login-material-input-label-val'}`}>
                 Password
               </label>
+              <div className="login-invalid-feedback">
+                <i className="fa-regular fa-circle-info"></i>
+                <p className="login-invalid-feedback-text">Please enter at least 6 characters including a letter and a number</p>
+              </div>
             </div>
             <p className="login-material-input-helper">
               &nbsp;&nbsp;At least 6 characters and should include a letter and a
@@ -143,7 +259,11 @@ function Signup() {
             </p>
           </div>
           <div className="login-submit-area">
-            <button disabled={(errors.email && errors.password)} style={errors.email && errors.password?{cursor:"not-allowed"}:{cursor:"pointer"}} onClick={handleClick} className="login-submit-btn">Continue with email</button>
+            <button disabled={(errors.email || errors.password)} style={errors.email || errors.password?{cursor:"not-allowed"}:{cursor:"pointer"}} onClick={handleClick} className="login-submit-btn">
+              {showLoader?<div className="login-loader-cont">
+                <div className="login-loader-elmn"></div>
+              </div>:<>Continue with email</>}
+            </button>
             <div className="login-small-help">
               Already have an account? <Link to="/login">Sign in</Link>
             </div>

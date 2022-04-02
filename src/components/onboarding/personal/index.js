@@ -1,7 +1,9 @@
 import React from 'react';
 import './style.css';
 
-function Personal({handleNext, finalDataToBack}) {
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
+function Personal({ handleNext, finalDataToBack }) {
   const socialIcons = [
     {
       name: 'facebook',
@@ -92,23 +94,22 @@ function Personal({handleNext, finalDataToBack}) {
       color: '#fff',
     },
     {
-      name: 'public',
-      regex:
-        /www[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+      name: 'website',
+      regex: /www[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
       url: 'www.abc.xyz',
       icon: 'fa-solid fa-earth-americas',
       background: 'transparent',
-      color: '#fff',
+      color: '#0085FF',
     },
   ];
 
   const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
   const [mainData, setMainData] = React.useState({
-    firstName: finalDataToBack.firstName?finalDataToBack.firstName:'',
-    lastName: finalDataToBack.lastName?finalDataToBack.lastName:'',
-    brand: finalDataToBack.brand?finalDataToBack.brand:'',
-    intro: finalDataToBack.intro?finalDataToBack.intro:'',
-    socialData: finalDataToBack.socialData?finalDataToBack.socialData:[],
+    firstName: finalDataToBack.firstName ? finalDataToBack.firstName : '',
+    lastName: finalDataToBack.lastName ? finalDataToBack.lastName : '',
+    brand: finalDataToBack.brand ? finalDataToBack.brand : '',
+    intro: finalDataToBack.intro ? finalDataToBack.intro : '',
+    socialData: finalDataToBack.socialData ? finalDataToBack.socialData : [],
   });
   const [errorData, setErrorData] = React.useState({
     firstName: '',
@@ -123,45 +124,69 @@ function Personal({handleNext, finalDataToBack}) {
   const nextDisabled = () => {
 
     let validSocials = true;
-    errorData.socialData.forEach((item,inde)=>{
-      validSocials = validSocials && item==='' && mainData.socialData[inde].url !== '';
+    errorData.socialData.forEach((item, inde) => {
+      validSocials = validSocials && item === '' && mainData.socialData[inde].url !== '';
     });
 
-    if(mainData.firstName === '' || errorData.firstName !== '' || mainData.lastName == '' || errorData.lastName !== '' || mainData.intro === '' || errorData.intro !== '' || !validSocials)
+    if (mainData.firstName === '' || errorData.firstName !== '' || mainData.lastName == '' || errorData.lastName !== '' || mainData.intro === '' || errorData.intro !== '' || !validSocials)
       return true;
     return false;
   }
 
+  let handleOnDragEnd = (result) => {
+    if (!result.destination) return;
+    const items = Array.from(selectedSocials);
+    const [reordered] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reordered);
+
+    setSelectedSocials(items);
+  }
+
   const handleButtonAdd = (e) => {
-    setSelectedSocials([
-      ...selectedSocials,
-      {
-        name: 'instagram',
-        regex: /(www.instagram.com\/(?![a-zA-Z0-9_]+\/)([a-zA-Z0-9_]+))/,
-        placeholder: 'www.instagram.com/xyz',
-        icon: 'fa-brands fa-instagram',
-        background: '#F00073',
-        color: '#fff',
-      },
-    ]);
 
-    setMainData({
-      ...mainData,
-      socialData: [
-        ...mainData.socialData,
-        {
-          name: 'instagram',
-          regex: /(www.instagram.com\/(?![a-zA-Z0-9_]+\/)([a-zA-Z0-9_]+))/,
-          valid: false,
-          url: '',
-        },
-      ],
-    });
+    let cont = new Set();
 
-    setErrorData({
-      ...errorData,
-      socialData: [...errorData.socialData, ''],
-    });
+    selectedSocials.forEach(item=>{
+      cont.add(item.name);
+    })
+
+    let len = cont.size;
+
+    console.log(selectedSocials, cont);
+
+    if(len==12) return;
+
+    for(let i=0;i<socialIcons.length;i++){
+      let poso = socialIcons[i];
+
+      if(cont.has(poso.name)) continue;
+
+      setSelectedSocials([
+        ...selectedSocials,
+        poso
+      ]);
+
+  
+      setMainData({
+        ...mainData,
+        socialData: [
+          ...mainData.socialData,
+          {
+            name: poso.name,
+            regex: poso.regex,
+            valid: false,
+            url: '',
+          },
+        ],
+      });
+  
+      setErrorData({
+        ...errorData,
+        socialData: [...errorData.socialData, ''],
+      });
+
+      break;
+    }
   };
 
   const handleDeleteSocial = (ind) => {
@@ -374,7 +399,7 @@ function Personal({handleNext, finalDataToBack}) {
         </div>
         <div className="onboarding-personal-part-inp-grp col-md-12">
           <label className="onboarding-personal-part-label">
-            Website intro - Add a one line summary about you / your brand
+            Brief introduction - Add a one line summary about you / your brand
             <span className="onboarding-personal-part-label-required">*</span>
           </label>
           <input
@@ -422,82 +447,93 @@ function Personal({handleNext, finalDataToBack}) {
           <div className="onboarding-personal-part-sub-label">
             Display your social media profiles on your page
           </div>
-          {selectedSocials.map((soc, inde) => {
-            return (
-              <div className="onboarding-personal-part-soc-inp-grp" key={inde}>
-                <div className="onboarding-personal-part-soc-dot">
-                  <i className="fa-solid fa-grip-dots-vertical"></i>
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="droppable-1">
+              {(provided, _) => (
+                <div ref={provided.innerRef} {...provided.droppableProps}>
+                  {selectedSocials.map((soc, inde) => (
+                    <Draggable key={inde} draggableId={"draggable-" + inde} index={inde}>
+                      {(provided, _) => (
+                        <div className="onboarding-personal-part-soc-inp-grp" key={inde} ref={provided.innerRef} {...provided.draggableProps} >
+                          <div className="onboarding-personal-part-soc-dot" {...provided.dragHandleProps}>
+                            <i className="fa-solid fa-grip-dots-vertical"></i>
+                          </div>
+                          <div className="onboarding-personal-part-soc-inp">
+                            <div className="onboarding-personal-part-sb-par input-group">
+                              <div className="input-group-text onboarding-personal-part-soc-sel">
+                                <div
+                                  className="onboarding-personal-part-soc-icons"
+                                  style={{ background: soc.background }}
+                                >
+                                  <i
+                                    className={soc.icon}
+                                    style={{ color: soc.color }}
+                                  ></i>
+                                </div>
+                                <select
+                                  className="onboarding-personal-part-soc-icons-list"
+                                  onChange={(e) =>
+                                    handleIndiSocChange(e.target.value, inde)
+                                  }
+                                >
+                                  {socialIcons.map((item, ind) => {
+                                    return <option key={ind}>{item.name}</option>;
+                                  })}
+                                </select>
+                              </div>
+                              <input
+                                type="text"
+                                className="form-control onboarding-personal-part-soc-inp-nes"
+                                placeholder={`Enter URL (Eg - ${soc.placeholder} )`}
+                                value={mainData.socialData[inde].url}
+                                onChange={(e) =>
+                                  handleSocialLinkChange(inde, e.target.value)
+                                }
+                              />
+                              <div className="onboarding-personal-part-soc-inp-break" />
+                              {errorData.socialData[inde] !== '' ? (
+                                <div className="onboarding-personal-part-invalid-feedback">
+                                  <i className="fa-regular fa-circle-info"></i>
+                                  {errorData.socialData[inde]}
+                                </div>
+                              ) : (
+                                <div>
+                                  {
+                                    window.screen.width < 400 ?
+                                      <>&nbsp;&nbsp;&nbsp;&nbsp;</> :
+                                      window.screen.width < 500 ?
+                                        <>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</> :
+                                        <>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</>
+                                  }
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div
+                            className="onboarding-personal-part-soc-bin"
+                            onClick={(e) => handleDeleteSocial(inde)}
+                          >
+                            <i className="fa-light fa-trash"></i>
+                          </div>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
                 </div>
-                <div className="onboarding-personal-part-soc-inp">
-                  <div className="onboarding-personal-part-sb-par input-group">
-                    <div className="input-group-text onboarding-personal-part-soc-sel">
-                      <div
-                        className="onboarding-personal-part-soc-icons"
-                        style={{ background: soc.background }}
-                      >
-                        <i
-                          className={soc.icon}
-                          style={{ color: soc.color }}
-                        ></i>
-                      </div>
-                      <select
-                        className="onboarding-personal-part-soc-icons-list"
-                        onChange={(e) =>
-                          handleIndiSocChange(e.target.value, inde)
-                        }
-                      >
-                        {socialIcons.map((item, ind) => {
-                          return <option key={ind}>{item.name}</option>;
-                        })}
-                      </select>
-                    </div>
-                    <input
-                      type="text"
-                      className="form-control onboarding-personal-part-soc-inp-nes"
-                      placeholder={`Enter URL (Eg - ${soc.placeholder} )`}
-                      value={mainData.socialData[inde].url}
-                      onChange={(e) =>
-                        handleSocialLinkChange(inde, e.target.value)
-                      }
-                    />
-                    <div className="onboarding-personal-part-soc-inp-break" />
-                    {errorData.socialData[inde] !== '' ? (
-                      <div className="onboarding-personal-part-invalid-feedback">
-                        <i className="fa-regular fa-circle-info"></i>
-                        {errorData.socialData[inde]}
-                      </div>
-                    ) : (
-                      <div>
-                        {
-                          window.screen.width < 400 ?
-                          <>&nbsp;&nbsp;&nbsp;&nbsp;</>:
-                          window.screen.width < 500 ?
-                          <>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</>:
-                          <>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</>
-                        }                      
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <div
-                  className="onboarding-personal-part-soc-bin"
-                  onClick={(e) => handleDeleteSocial(inde)}
-                >
-                  <i className="fa-light fa-trash"></i>
-                </div>
-              </div>
-            );
-          })}
-          <button
+              )}
+            </Droppable>
+          </DragDropContext>
+          {selectedSocials.length !== 12?<button
             className="onboarding-personal-part0ico-btn"
             onClick={handleButtonAdd}
           >
             <i className="fa-solid fa-plus"></i> Add new social link
-          </button>
+          </button>:null}
         </div>
         <div className="onboarding-btns-group">
           <div>&nbsp;</div>
-          <button className="btn onboarding-btn-next" disabled={nextDisabled()} onClick={()=>handleNext(mainData)}>
+          <button className="btn onboarding-btn-next" disabled={nextDisabled()} onClick={() => handleNext(mainData)}>
             Next
           </button>
         </div>

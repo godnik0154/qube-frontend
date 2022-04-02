@@ -7,11 +7,6 @@ import { resetUserDetails } from '../../redux/user/user.action';
 import './style.css';
 
 function Dashboard() {
-
-  const firstName = localStorage.getItem('firstName');
-  const lastName = localStorage.getItem('lastName');
-  const profilePicName = JSON.parse(localStorage.getItem('profile')).name;
-
   const [logoutAct,setLogoutAct] = React.useState(false);
 
   const handleLogChange = (e) => {
@@ -20,6 +15,12 @@ function Dashboard() {
 
   const dispatch = useDispatch();
   const user = useSelector(state=>state.user.user);
+
+  const firstName = user.firstName;
+  const lastName = user.lastName;
+  const profilePicName = user.profile.name;
+
+  console.log(user);
 
   const navigate = useNavigate();
 

@@ -122,11 +122,12 @@
     flex-grow: .05;
     border: 1px solid #8F8F8F;
     background-color: #F5F5F5;
-    padding-left: 5px;
+    padding: 5px;
 }
 
 .onboarding-personal-part-soc-icons{
-    height: 100%;
+    height: 25px;
+    width: 20px;
     flex-grow: .5;
     color: white;
     background: #F00073;
@@ -137,8 +138,8 @@
 .onboarding-personal-part-soc-icons-list{
     width: 18px;
     margin-right: -21px;
+    text-transform: capitalize;
     outline: none !important;
-    margin-left: 11px;
     background: none;
     border: none;
 }

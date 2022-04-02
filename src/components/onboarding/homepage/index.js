@@ -13,25 +13,55 @@ function ColorsSelect({mainColor, name, handleColorChange}) {
 
     let [activeState,setActiveState] = React.useState(false);
     let [initialColor, setInitialColor] = React.useState(mainColor);
+    let [typed, setTyped] = React.useState(true);
+
+    function useOutsideAlerter(ref) {
+        React.useEffect(() => {
+    
+          function loseFocus(e){
+            setActiveState(false);
+          }
+    
+          function handleClickOutside(event) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                setActiveState(false);
+            }
+          }
+    
+          document.addEventListener("mousedown", handleClickOutside);    
+          ref.current.addEventListener('keydown',e=>{
+            if(e.keyCode===9){
+              loseFocus(e);
+            }
+          })
+          return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+          };
+        }, [ref]);
+      }
+    
+      const colorRef = React.useRef(null);
+      useOutsideAlerter(colorRef);
 
     let handleOnOff = (e) => {
         setActiveState(prev=>!prev);        
     }
 
     let handleOnChange = (e) => {
+        setTyped(false);
         setInitialColor(e.hex);
         handleColorChange(name,e.hex);
     }
 
 
     return (
-        <>
+        <div ref={colorRef}>
             <div className='onboarding-personal-select_wrap'>
                 <ul className="onboarding-personal-select_default_option">
                     <li className="onboarding-personal-select_li-active">
                         <div className="onboarding-personal-select_option-colors pizza">
                             <div className="onboarding-personal-select_icon" style={{backgroundColor:`${initialColor}`}}></div>
-                            <i className={`onboarding-personal-select_exp fa-light ${activeState?'fa-xmark':'fa-pen-to-square'}`} onClick={handleOnOff}></i>
+                            <i className={`onboarding-personal-select_exp fa-light ${activeState?'fa-xmark':typed?'fa-pen-to-square':'fa-check'}`} onClick={handleOnOff}></i>
                         </div>
                     </li>
                 </ul>
@@ -42,7 +72,7 @@ function ColorsSelect({mainColor, name, handleColorChange}) {
                     onChange={handleOnChange}
                 />:null}
             </div>
-        </>
+        </div>
     )
 }
 
@@ -130,7 +160,7 @@ function Homepage({handlePrev,handleNext}) {
     return (
         <div className="onboarding-homepage-part">
             <div className='container'>
-                <h2 className="onboarding-homepage-part-heading">Homepage appearance</h2>
+                <h2 className="onboarding-homepage-part-heading">Website appearance</h2>
                 <h5 className="onboarding-homepage-part-subheading">Display picture</h5>
                 <h6 className="onboarding-homepage-part-subsubheading">Add your brand logo or your profile picture - whatever represents you best! </h6>
                 <div className='onboarding-homepage-part-profilePic'>
