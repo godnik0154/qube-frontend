@@ -116,7 +116,7 @@ function Dashboard() {
         <div className="dashboard-maincontent" style={sidebarOpen?{display:'none'}:{}}>
           <div className='dashboard-maincontent-header'>
             <div className="dashboard-maincontent-header-picture-box">
-              <div className='dashboard-maincontent-header-picture' style={{backgroundImage: `url("${`${API_URL}profile/getImage/${profilePicName}`}")`}} />
+              <div className='dashboard-maincontent-header-picture' style={{backgroundImage: `url("${`${API_URL}/profile/getImage/${profilePicName}`}")`}} />
             </div>
             <div className="dashboard-maincontent-header-name">
               <p className='dashboard-maincontent-header-name-greet'>Welcome, <span>{firstName}</span></p>

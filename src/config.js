@@ -1,7 +1,7 @@
 let environment = true;
 
 const moduleConfig = {
-    PROD_API_URL: 'http://18.237.28.27:8080/',
+    PROD_API_URL: 'http://18.237.28.27:8080',
     DEV_API_URL: 'http://localhost:8080'
 }
 
