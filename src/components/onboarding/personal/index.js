@@ -128,7 +128,7 @@ function Personal({ handleNext, finalDataToBack }) {
       validSocials = validSocials && item === '' && mainData.socialData[inde].url !== '';
     });
 
-    if (mainData.firstName === '' || errorData.firstName !== '' || mainData.lastName == '' || errorData.lastName !== '' || mainData.intro === '' || errorData.intro !== '' || !validSocials)
+    if (mainData.firstName === '' || mainData.brand === '' || errorData.firstName !== '' || mainData.lastName === '' || errorData.lastName !== '' || mainData.intro === '' || errorData.intro !== '' || errorData.brand !== '' || !validSocials)
       return true;
     return false;
   }
@@ -154,7 +154,7 @@ function Personal({ handleNext, finalDataToBack }) {
 
     console.log(selectedSocials, cont);
 
-    if(len==12) return;
+    if(len===12) return;
 
     for(let i=0;i<socialIcons.length;i++){
       let poso = socialIcons[i];
@@ -193,7 +193,7 @@ function Personal({ handleNext, finalDataToBack }) {
     let newArr = [];
 
     for (let i = 0; i < selectedSocials.length; i++) {
-      if (i == ind) continue;
+      if (i === ind) continue;
 
       newArr.push(selectedSocials[i]);
     }
@@ -203,7 +203,7 @@ function Personal({ handleNext, finalDataToBack }) {
     newArr = [];
 
     for (let i = 0; i < mainData.socialData.length; i++) {
-      if (i == ind) continue;
+      if (i === ind) continue;
 
       newArr.push(mainData.socialData[i]);
     }
@@ -216,7 +216,7 @@ function Personal({ handleNext, finalDataToBack }) {
     newArr = [];
 
     for (let i = 0; i < errorData.socialData.length; i++) {
-      if (i == ind) continue;
+      if (i === ind) continue;
 
       newArr.push(errorData.socialData[i]);
     }
@@ -294,10 +294,20 @@ function Personal({ handleNext, finalDataToBack }) {
     }
 
     if (name === 'brand') {
-      setMainData({
-        ...mainData,
-        [name]: value,
-      });
+      if (value === '') {
+        errorData[name] = 'Add a brand page name';
+        setMainData({
+          ...mainData,
+          [name]: value,
+        });
+      }
+      else {
+        errorData[name] = '';
+        setMainData({
+          ...mainData,
+          [name]: value,
+        });
+      }
     }
 
     setErrorData(errorData);
@@ -384,10 +394,8 @@ function Personal({ handleNext, finalDataToBack }) {
         </div>
         <div className="onboarding-personal-part-inp-grp col-md-12">
           <label className="onboarding-personal-part-label">
-            Brand/Page name
-            <span className="onboarding-personal-part-label-opt">
-              (Optional)
-            </span>
+            Brand
+            <span className="onboarding-personal-part-label-required">*</span>
           </label>
           <input
             type="text"
@@ -395,6 +403,12 @@ function Personal({ handleNext, finalDataToBack }) {
             placeholder="Eg, Stark’s Tech Squad"
             value={mainData.brand}
             onChange={(e) => handleMainChange('brand', e.target.value)}
+            style={{
+              border:
+                errorData.brand.length === 0
+                  ? '1px solid #8F8F8F'
+                  : '1px solid #ED340B',
+            }}
           />
         </div>
         <div className="onboarding-personal-part-inp-grp col-md-12">

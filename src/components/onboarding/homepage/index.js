@@ -113,7 +113,7 @@ function Homepage({handlePrev,handleNext}) {
             let rest = event.target.files[0].name.substring(0, event.target.files[0].name.lastIndexOf(".")),
                 last = event.target.files[0].name.substring(event.target.files[0].name.lastIndexOf("."), event.target.files[0].name.length);
     
-            let newName = `${rest}-${Date.now()}${last}`;
+            let newName = `${rest}-${Date.now()}${last}`.replaceAll(" ","");
     
             if(name === 'profile')
             {

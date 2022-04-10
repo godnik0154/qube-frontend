@@ -1,0 +1,14 @@
+.sidebar-main{
+    position: absolute;
+    width: 100vw;
+    height: max-content;
+    min-height: 100vh;
+    padding-bottom: 5rem;
+    background: white;
+    transform: translateX(0);
+    transition: all .2s;
+}
+
+.sidebar-main.closed{
+    transform: translateX(-100vw);
+}

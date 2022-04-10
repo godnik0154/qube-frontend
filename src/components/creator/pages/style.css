@@ -1,0 +1,184 @@
+.creator-dashboard-pages{
+    margin-top: 2rem;
+}
+
+.creator-dashboard-pages-card{
+    width: 100%;
+    background-color: #fff;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    justify-content: center;
+    margin-bottom: 1rem;
+    flex-direction: column;
+}
+
+.creator-dashboard-pages-imageArea img{
+    width: 100%;
+    border-radius: 8px;
+}
+
+.creator-dashboard-pages-text{
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.creator-dashboard-pages-text-info{
+    font-weight: 600;
+}
+
+.creator-dashboard-pages-text-icon{
+    cursor: pointer;
+    font-weight: 400;
+}
+
+.creator-dashboard-pages-link{
+    width: 100%;
+    margin-top: 10px;
+}
+
+.creator-dashboard-pages-link-text{
+    color: #0085FF;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+.creator-dahboard-pages-publish-button-inp {
+    display: none;
+}
+
+.creator-dahboard-pages-publish-button-inp, 
+.creator-dahboard-pages-publish-button-inp:after,
+.creator-dahboard-pages-publish-button-inp:before, 
+.creator-dahboard-pages-publish-button-inp *, 
+.creator-dahboard-pages-publish-button-inp *:after, 
+.creator-dahboard-pages-publish-button-inp *:before{
+    box-sizing: border-box;
+}
+
+.creator-dahboard-pages-publish-button-inp::selection, 
+.creator-dahboard-pages-publish-button-inp:after::selection, 
+.creator-dahboard-pages-publish-button-inp:before::selection, 
+.creator-dahboard-pages-publish-button-inp *::selection, 
+.creator-dahboard-pages-publish-button-inp *:after::selection, 
+.creator-dahboard-pages-publish-button-inp *:before::selection, 
+.creator-dahboard-pages-publish-button-inp + .creator-dahboard-pages-publish-button-btn::selection {
+    background: none;
+}
+
+.creator-dahboard-pages-publish-button-inp + .creator-dahboard-pages-publish-button-btn {
+    outline: 0;
+    box-sizing: border-box;
+    display: block;
+    width: 3rem;
+    height: 1.5rem;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    padding: 2px;
+    transition: all 0.2s ease;
+    background: #fff;
+    border-width: 2px !important;
+    border: 2px solid #f2f2f2;
+    border-radius: 2em;
+}
+.creator-dahboard-pages-publish-button-inp + .creator-dahboard-pages-publish-button-btn:after, .tgl + .creator-dahboard-pages-publish-button-btn:before {
+    position: relative;
+    display: block;
+    content: "";
+    width: 40%;
+    height: 100%;
+}
+.creator-dahboard-pages-publish-button-inp + .creator-dahboard-pages-publish-button-btn:after {
+    left: 0;
+}
+.creator-dahboard-pages-publish-button-inp + .creator-dahboard-pages-publish-button-btn:before {
+    display: none;
+}
+.creator-dahboard-pages-publish-button-inp:checked + .creator-dahboard-pages-publish-button-btn:after {
+    left: 56%;
+    background: #0085FF;
+}
+
+.creator-dahboard-pages-publish-button-inp + .creator-dahboard-pages-publish-button-btn:after {
+    transition: all 0.2s ease;
+    background: #f2f2f2;
+    content: "";
+    border-radius: 1em;
+}
+.creator-dahboard-pages-publish-button-inp:checked + .creator-dahboard-pages-publish-button-btn {
+    border: 4px solid #0085FF;
+}
+
+.creator-dashboard-pages-publish{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.creator-dahboard-pages-publish-button{
+    display: flex;
+    flex-direction: column;
+}
+
+.creator-dahboard-pages-publish-button-text{
+    font-size: .8rem;
+    text-align: center;
+    margin-top: 3px;
+}
+
+.creator-dahboard-pages-publish-sbn{
+    cursor: pointer;
+}
+
+@media (max-width: 500px) {
+
+    .creator-dashboard-pages{
+        margin-bottom: 6.5rem;
+    }
+
+    .creator-dashboard-sidebar{
+        flex-grow: 0;
+    }
+
+    .creator-dashboard-logo,.creator-dashboard-logo-cont{
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        margin: 0!important;
+    }
+
+    .creator-dashboard-sidebar-item {
+        flex-direction: column;
+        padding: .5rem .1rem;
+    }
+
+    .creator-dashboard-sidebar-items-cont {
+        flex-direction: row !important;
+        border-top: 1px solid rgba(0, 0, 0, 0.25);
+        background-color: #fff;
+        width: 100vw;
+        z-index: 100;
+        height: 5rem;
+        padding: 0 5px;
+        margin: 0;
+        bottom: 0;
+        justify-content: space-around;
+        align-items: center;
+        position: fixed;
+    }
+}
+
+@media (max-width: 350px) {
+    .creator-dashboard-sidebar-item-info{
+        font-size: .8rem;
+        text-align: center;
+    }
+}

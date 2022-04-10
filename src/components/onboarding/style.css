@@ -59,6 +59,7 @@
 .onboarding-box-dropdown {
   flex-grow: 1;
   display: flex;
+  cursor: pointer;
   align-items: center;
   justify-content: center;
 }
