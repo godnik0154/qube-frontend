@@ -1,0 +1,235 @@
+.user-profile{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.user-profile-nav{
+    display:flex;
+    width: 100%;   
+    height: 3rem;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: var(--primary-back);
+}
+
+.user-profile-nav-image-cont{
+    height: 3rem;
+    margin: 0 2rem;
+}
+
+.user-profile-nav-image{
+    height: 3rem;
+}
+
+.user-profile-nav-text-cont{
+    color: var(--primary-fore);
+    text-transform: capitalize;
+    font-weight: 500;
+}
+
+.user-profile-body{
+    flex: 1;
+}
+
+.user-profile-body-part--1{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.user-profile-body{
+    background-color: var(--secondary-back);
+    padding: 2rem;
+}
+
+.user-profile-body-part--1-profile,.user-profile-body-part--1-cover{
+    flex: 0 0 auto;
+    width: 50%;
+}
+
+.user-profile-body-part--1-profile-image-cont,.user-profile-body-part--1-profile-image{
+    height: 4rem;
+    border-radius: 4px;
+}
+
+.user-profile-body-part--1-profile-brand{
+    color: var(--secondary-fore);
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.user-profile-body-part--1-cover-image{
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 100%;
+}
+
+.user-profile-body-part--1-profile-intro{
+    color: var(--secondary-fore);
+    margin-top: 20px;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.user-profile-body-part--1-profile-links-head{
+    text-align: left;
+    color: var(--secondary-fore);
+    margin: 0;
+}
+
+.user-part--1-profile-icons-parent{
+    display: inline-block;
+    margin: 10px;
+    margin-left: 0;
+}
+
+.user-profile-body-part--1-profile-links-head-master{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+
+.user-profile-body-part--1-profile-links-head-slave{
+    color: var(--secondary-fore);
+    text-align: right;
+    font-size: .6rem;
+}
+
+.user-profile-body-part--1-profile-links-cont{
+    overflow: hidden;
+    width: auto;
+    flex: .95;
+    white-space: nowrap;
+}
+
+.user-profile-body-part--1-profile-links-slave{
+    flex: .05;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-profile-body-part--1-profile-links-slave i{
+    color: var(--primary-fore);
+    text-align: center;
+    margin: auto;
+}
+
+.user-profile-body-part--1-profile-links--master{
+    display: flex;
+    position: relative;
+}
+
+.user-profile-body-mask-right {
+    position: absolute;
+    right: 5%;
+    top: 22%;
+    width: 20px;
+    height: 30px;
+    background: linear-gradient(270deg, #8665EA 50%, rgba(77, 209, 185, 0.48) 69.58%);
+    filter: blur(8px);
+}
+
+.user-part--1-profile-icons{
+    background-color: var(--primary-opaque);
+    color: var(--primary-fore);
+    cursor: pointer;
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    padding: 4px 0;
+}
+
+.user-part--1-profile-icons i{
+    margin-left: 10px;
+}
+
+.user-part--1-profile-icons p{
+    margin-bottom: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.user-profile-body-part--1-profile-cta-cont{
+    margin-top: 20px;
+}
+
+.user-profile-body-part--1-profile-cta{
+    background-color: var(--primary-back);
+    color: var(--primary-fore);
+    outline: none;
+    border: 0;
+    border-radius: 4px;
+    padding: 8px 10px;
+}
+
+.user-profile-footer{
+    background-color: var(--primary-back);
+    color: var(--primary-fore);
+    padding: 1rem;
+}
+
+.user-profile-footer-links{
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.user-profile-footer-links i{
+    font-size: 1.2rem;
+}
+
+.user-profile-footer-sub{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-profile-footer-subnes{
+    background-color: #0085FF;
+    border: 2px;
+    padding: 0 5px;
+}
+
+.user-profile-footer-links-cont{
+    margin-top: 5px;
+}
+
+.user-profile-footer-links-cont i{
+    cursor: pointer;
+}
+
+.user-profile-footer-name{
+    font-size: 1rem;
+    font-weight: 500;    
+}
+
+@media (max-width: 768px){
+    .user-profile-body-part--1{
+        flex-direction: column-reverse;
+    }
+
+    .user-profile-body-part--1-profile-brand{
+        margin-top: 50px;
+    }
+
+    .user-profile-body-part--1-profile-image-cont{
+        top: -14%;
+        z-index: 20;
+        left: 4%;
+        position: absolute;
+    }
+
+    .user-profile-body-part--1-cover,.user-profile-body-part--1-profile{
+        flex: 0 0 auto;
+        position: relative;
+        width: 100%;
+    }
+}

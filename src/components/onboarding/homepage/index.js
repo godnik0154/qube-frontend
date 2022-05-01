@@ -1,13 +1,27 @@
 import React from 'react';
 import './style.css';
 import { ChromePicker } from "react-color";
+import ImgCrop from '../ImgCrop';
 
-let getBase64 = file => new Promise((resolve, reject) => {
+
+let getImage = async (url) => {
     const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-});
+
+    let promise = new Promise(async (resolve, reject)=>{
+        reader.onloadend = () => {
+          const base64data = reader.result;                
+          resolve(base64data);
+        }
+
+        const response = await fetch(url)
+        const imageBlob = await response.blob()
+        reader.readAsDataURL(imageBlob);  
+    })
+
+    let res = await promise;
+
+    return res;
+}
 
 function ColorsSelect({mainColor, name, handleColorChange}) {
 
@@ -100,22 +114,27 @@ function Homepage({handlePrev,handleNext}) {
     }
 
     const [finalErrors, setFinalError] = React.useState(initialError);
-
+    const [showFile, setShowFile] = React.useState(null);
     const [finalData, setFinalData] = React.useState(initialFinalData);
+    const [finalImage, setFinalImage] = React.useState(null);
+    const [theName, setTheName] = React.useState(null);
+    const [imageName, setImageName] = React.useState(null);
+    const [imgtype, setImgType] = React.useState(null);
+    const [node, setNode] = React.useState(null);
+    const [dimension, setDimension] = React.useState([1,1])
 
-    let loadFile = async (name, event) => {
+    let clearAll = () => {
+     setShowFile(null);
+     setFinalImage(null);
+     setTheName(null);
+     setImageName(null);
+     setImgType(null);
+     setNode(null);
+    }
 
-        try{
-            let dat = URL.createObjectURL(
-                event.target.files[0]
-            );
-    
-            let rest = event.target.files[0].name.substring(0, event.target.files[0].name.lastIndexOf(".")),
-                last = event.target.files[0].name.substring(event.target.files[0].name.lastIndexOf("."), event.target.files[0].name.length);
-    
-            let newName = `${rest}-${Date.now()}${last}`.replaceAll(" ","");
-    
-            if(name === 'profile')
+    React.useEffect(async ()=>{
+        if(finalImage){
+            if(theName === 'profile')
             {
                 setFinalError({
                     profile: true
@@ -124,19 +143,53 @@ function Homepage({handlePrev,handleNext}) {
     
             setFinalData({
                 ...finalData,
-                [name]: {
-                    name: newName,
-                    image: await getBase64(event.target.files[0]),
-                    type: event.target.files[0].type               
+                [theName]: {
+                    name: imageName,
+                    image: await getImage(finalImage),
+                    type: imgtype
                 }
-            })
+            });
+
+            node.target.nextElementSibling.style.backgroundImage = `url(${finalImage})`;
+            node.target.nextElementSibling.style.backgroundColor = 'unset';
+            node.target.previousElementSibling.childNodes[0].style.opacity = 0;
+            clearAll();
+        }
+    },[finalImage])
+
+    let loadFile = async (name, event) => {
+
+        try{
+            let dat = URL.createObjectURL(
+                event.target.files[0]
+            );
+
+            if(name=='profile'){
+                setDimension([1,1]);
+            }else {
+                setDimension([5,2]);
+            }    
+
+            let rest = event.target.files[0].name.substring(0, event.target.files[0].name.lastIndexOf(".")),
+                last = event.target.files[0].name.substring(event.target.files[0].name.lastIndexOf("."), event.target.files[0].name.length);
     
-            event.target.nextElementSibling.style.backgroundImage = `url(${dat})`;
-            event.target.nextElementSibling.style.backgroundColor = 'unset';
-            event.target.previousElementSibling.childNodes[0].style.opacity = 0;
+            let newName = `${rest}-${Date.now()}${last}`.replaceAll(" ","");
+
+            setTheName(name);
+            setImageName(newName);
+            setImgType(event.target.files[0].type);
+    
+            // console.log(dat);
+            setNode(event);
+
+            setShowFile(dat);
+    
+            // event.target.nextElementSibling.style.backgroundImage = `url(${dat})`;
+            // event.target.nextElementSibling.style.backgroundColor = 'unset';
+            // event.target.previousElementSibling.childNodes[0].style.opacity = 0;
         }
         catch(err){
-
+            console.log(err.message)
         }
     };
 
@@ -178,7 +231,7 @@ function Homepage({handlePrev,handleNext}) {
                         name="profilePicture"
                         type="file"
                         onChange={e => loadFile('profile', e)}
-                        accept="image/png,image/jpg,image/jpeg"
+                        accept="image/*"
                     />
                     <div className='onboarding-homepage-part-imageArea'></div>
                 </div>
@@ -199,7 +252,7 @@ function Homepage({handlePrev,handleNext}) {
                         name="coverPicture"
                         type="file"
                         onChange={e => loadFile('cover', e)}
-                        accept="image/png,image/jpg,image/jpeg"
+                        accept="image/*"
                     />
                     <div className='onboarding-homepage-part-imageArea'></div>
                 </div>
@@ -224,6 +277,10 @@ function Homepage({handlePrev,handleNext}) {
                 </div>
                 <br /><br /><br />
             </div>
+            {
+                showFile?
+                <ImgCrop showFile={showFile} setShowFile={setShowFile} setFinalImage={setFinalImage} dimension={dimension} clearAll={clearAll} />:null
+            }
         </div>
     )
 }

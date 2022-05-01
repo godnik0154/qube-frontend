@@ -76,6 +76,9 @@ function Onboarding() {
   }
 
   let handlePostData = async (postData) => {
+    postData.firstName = postData.firstName.trim().toLowerCase();
+    postData.lastName = postData.lastName.trim().toLowerCase();
+    console.log(postData);
     const res = await axios.post(`${API_URL}/onboarding`,postData);
     const data = res.data.data;
 
@@ -118,7 +121,7 @@ function Onboarding() {
 
   return (
     <div className="onboarding-page">
-      <div className="onboarding-header">
+       <div className="onboarding-header">
         <div className="onboarding-logo-cont">
           <img src="/images/Qube.svg" className="onboarding-logo" alt="logo" />
         </div>
@@ -164,12 +167,12 @@ function Onboarding() {
           </div>
         </div>
         <div className="onboarding-form-step onboarding-form-step-active">
-          <Personal handleNext={handleNext} finalDataToBack={finalDataToBack} />
+          <Personal handleNext={handleNext} finalDataToBack={finalDataToBack} /> 
         </div>
         <div className="onboarding-form-step">
           <Homepage handlePrev={handlePrev} handleNext={handleNext} />
         </div>
-      </div>
+      </div> 
     </div>
   );
 }

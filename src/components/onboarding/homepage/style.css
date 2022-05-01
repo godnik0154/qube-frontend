@@ -30,7 +30,6 @@
     margin: auto;
     margin-top: 2rem;
     transition: all 0.3s ease;
-    z-index: 10;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,7 +46,6 @@
     margin: auto;
     margin-top: 2rem;
     transition: all 0.3s ease;
-    z-index: 10;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -76,7 +74,7 @@
     background-color: rgba(0, 133, 255, 0.22);
     box-shadow: 0 0 10px 0 rgba(255, 255, 255, .35);
     border-radius: 100px;
-    z-index: 0;
+    z-index: -1;
     -webkit-border-radius: 100px;
     -moz-border-radius: 100px;
     -ms-border-radius: 100px;
@@ -87,13 +85,14 @@
     position: absolute;
     object-fit: cover;
     width: 100%;
-    height: 165px;
+    height: 200px;
+    max-width: 500px;
     background-size: cover;
     background-position: center;
     background-color: rgba(0, 133, 255, 0.22);
     box-shadow: 0 0 10px 0 rgba(255, 255, 255, .35);
     border-radius: 6px;
-    z-index: 0;
+    z-index: -1;
 }
 
 .onboarding-homepage-part-profileiconLabel {
@@ -105,9 +104,9 @@
 
 .onboarding-homepage-part-covericonLabel {
     cursor: pointer;
-    height: 165px;
+    height: 200px;
     position: relative;
-    width: 100%;
+    max-width: 500px;
 }
 
 .onboarding-homepage-part-cam-button {
@@ -118,7 +117,7 @@
     top: 50%;
     transform: translate(-50%, -50%);
     transition: all .2s;
-    z-index: 20;
+
     outline: none !important;
     width: 35px;
     height: 35px;
@@ -162,6 +161,8 @@
     align-items: center;
     background-color: rgba(0, 0, 0, .8);
     z-index: 20;
+    height: 200px;
+    width:  100%;
     color: #fafafa;
     transition: background-color 0.2s ease-in-out;
     border-radius: 6px;

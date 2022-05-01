@@ -49,14 +49,14 @@ function Dashboard() {
     navigate('/login');
   }
 
-  const profileUrl = `<www.qube.so/${firstName.toLocaleLowerCase()}_${lastName.toLocaleLowerCase()}>`;
+  const profileUrl = `${window.location.host}/profile/${firstName.toLocaleLowerCase()}_${lastName.toLocaleLowerCase()}`;
 
   const handleSidebarOpen = (e) => {
     setSidebarOpen(!sidebarOpen);
   }
 
   const handleCopy = (e) => {
-    navigator.clipboard.writeText(profileUrl.substring(1,profileUrl.length-1));
+    navigator.clipboard.writeText(profileUrl);
     toast.success("Profile Url Copied");
   }
 
@@ -116,8 +116,7 @@ function Dashboard() {
         <div className="dashboard-maincontent" style={sidebarOpen?{display:'none'}:{}}>
           <div className='dashboard-maincontent-header'>
             <div className="dashboard-maincontent-header-picture-box">
-              <div className='dashboard-maincontent-header-picture' style={{backgroundImage: `url("${`${API_URL}/
-              profile/getImage/${profilePicName}`}")`}} />
+              <div className='dashboard-maincontent-header-picture' style={{backgroundImage: `url("${`${API_URL}/profile/getImage/${profilePicName}`}")`}} />
             </div>
             <div className="dashboard-maincontent-header-name">
               <p className='dashboard-maincontent-header-name-greet'>Welcome, <span>{firstName}</span></p>

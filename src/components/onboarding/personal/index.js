@@ -104,6 +104,20 @@ function Personal({ handleNext, finalDataToBack }) {
   ];
 
   const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
+  const [optionSet, setOptionSet] = React.useState({
+    facebook: true,
+    twitter: true,
+    linkedin: true,
+    youtube: true,
+    instagram: true,
+    pinterest: true,
+    github: true,
+    gitlab: true,
+    medium: true,
+    dribble: true,
+    behance: true,
+    website: true
+  })
   const [mainData, setMainData] = React.useState({
     firstName: finalDataToBack.firstName ? finalDataToBack.firstName : '',
     lastName: finalDataToBack.lastName ? finalDataToBack.lastName : '',
@@ -152,14 +166,17 @@ function Personal({ handleNext, finalDataToBack }) {
 
     let len = cont.size;
 
-    console.log(selectedSocials, cont);
-
     if(len===12) return;
 
     for(let i=0;i<socialIcons.length;i++){
       let poso = socialIcons[i];
 
       if(cont.has(poso.name)) continue;
+
+      setOptionSet({
+        ...optionSet,
+        [poso.name]: false
+      })
 
       setSelectedSocials([
         ...selectedSocials,
@@ -193,7 +210,9 @@ function Personal({ handleNext, finalDataToBack }) {
     let newArr = [];
 
     for (let i = 0; i < selectedSocials.length; i++) {
-      if (i === ind) continue;
+      if (i === ind){
+        continue;
+      };
 
       newArr.push(selectedSocials[i]);
     }
@@ -203,7 +222,13 @@ function Personal({ handleNext, finalDataToBack }) {
     newArr = [];
 
     for (let i = 0; i < mainData.socialData.length; i++) {
-      if (i === ind) continue;
+      if (i === ind){
+        setOptionSet({
+          ...optionSet,
+          [mainData.socialData[i].name]: true
+        })
+        continue
+      };
 
       newArr.push(mainData.socialData[i]);
     }
@@ -229,6 +254,12 @@ function Personal({ handleNext, finalDataToBack }) {
 
   const handleIndiSocChange = (value, index) => {
     let itemsTobeSet = [];
+
+    setOptionSet({
+      ...optionSet,
+      [value]: false,
+      [selectedSocials[index].name]: true
+    })
 
     socialIcons.forEach((item) => {
       if (item.name === value) {
@@ -257,7 +288,6 @@ function Personal({ handleNext, finalDataToBack }) {
 
   const handleMainChange = (name, value) => {
     if (name === 'firstName' || name === 'lastName') {
-      value = value.trim();
       let format = /[!@#$%^&*()_+\-=\[\]{};0123456789':"\\|,.<>\/?]+/;
       if (value === '') {
         if (name === 'firstName')
@@ -490,8 +520,8 @@ function Personal({ handleNext, finalDataToBack }) {
                                     handleIndiSocChange(e.target.value, inde)
                                   }
                                 >
-                                  {socialIcons.map((item, ind) => {
-                                    return <option key={ind}>{item.name}</option>;
+                                  {Object.keys(optionSet).map((item, ind) => {
+                                    return optionSet[item]?<option key={ind}>{item}</option>:null;
                                   })}
                                 </select>
                               </div>

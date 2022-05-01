@@ -169,11 +169,18 @@
   justify-content: space-between;
 }
 
-.onboarding-btn-prev,.onboarding-btn-next
+.onboarding-btn-prev
 {
   width: 30%;
+  border: 2px solid #0085FF;
+  background: white;
+  color: #0085FF;
+}
+
+.onboarding-btn-next{
+  width: 30%;
   background:#0085FF;
-  color: white;
+  color: white; 
 }
 
 .onboarding-btn-prev:hover,.onboarding-btn-next:hover

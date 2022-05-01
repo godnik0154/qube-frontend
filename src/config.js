@@ -1,7 +1,7 @@
 let environment = true;
 
 const moduleConfig = {
-    PROD_API_URL: 'https://qube-backend.herokuapp.com',
+    PROD_API_URL: 'https://backend.qube.so',
     DEV_API_URL: 'http://localhost:8080'
 }
 
