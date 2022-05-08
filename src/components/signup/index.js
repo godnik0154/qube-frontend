@@ -72,7 +72,6 @@ function Signup() {
     if(typeof data !== 'object') {
       toast.error(data);
     } else {
-      toast.success("Signup Successfully");
       delete data._id;
       dispatch(setUserDetails(data));
 
@@ -107,10 +106,10 @@ function Signup() {
             else 
               ref.current.nextElementSibling.nextElementSibling.childNodes[1].textContent = 'Please enter a email';
           } else {
-            ref.current.style.border = '2px solid #4BB543';
-            ref.current.nextElementSibling.style.color = '#4BB543';
-            ref.current.nextElementSibling.nextElementSibling.style.display = 'flex';
-            ref.current.nextElementSibling.nextElementSibling.style.color = '#4BB543';
+            // ref.current.style.border = '2px solid #4BB543';
+            // ref.current.nextElementSibling.style.color = '#4BB543';
+            // ref.current.nextElementSibling.nextElementSibling.style.display = 'flex';
+            // ref.current.nextElementSibling.nextElementSibling.style.color = '#4BB543';
             if(ref.current.name==='password')
               ref.current.nextElementSibling.nextElementSibling.childNodes[1].textContent = 'Entered password is valid';
             else 
@@ -144,10 +143,10 @@ function Signup() {
               else 
                 ref.current.nextElementSibling.nextElementSibling.childNodes[1].textContent = 'Please enter a email';
             } else {
-              ref.current.style.border = '2px solid #4BB543';
-              ref.current.nextElementSibling.style.color = '#4BB543';
-              ref.current.nextElementSibling.nextElementSibling.style.display = 'flex';
-              ref.current.nextElementSibling.nextElementSibling.style.color = '#4BB543';
+              // ref.current.style.border = '2px solid #4BB543';
+              // ref.current.nextElementSibling.style.color = '#4BB543';
+              // ref.current.nextElementSibling.nextElementSibling.style.display = 'flex';
+              // ref.current.nextElementSibling.nextElementSibling.style.color = '#4BB543';
               if(ref.current.name==='password')
                 ref.current.nextElementSibling.nextElementSibling.childNodes[1].textContent = 'Entered password is valid';
               else 

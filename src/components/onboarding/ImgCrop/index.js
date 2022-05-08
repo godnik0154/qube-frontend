@@ -45,6 +45,7 @@ const Imgcrop = ({
   }, [imageSrc, croppedAreaPixels])
 
   React.useEffect(()=>{
+    console.log(imageSrc);
     if(imageSrc)
       setModalOpen(true);
   },[imageSrc])
@@ -54,6 +55,7 @@ const Imgcrop = ({
   }, []);
 
   const destoryModal = (e) => {
+    clearAll();
     setModalOpen(false);
   }
 
@@ -63,6 +65,8 @@ const Imgcrop = ({
       document.querySelector('.imgcrop-sliderRange').style.background = 'linear-gradient(to right, #0085FF 0%, #0085FF ' + value + '%, #99ceff ' + value + '%, #99ceff 100%)';
     }
   },[zoom,croppedImage])
+
+  console.log(modalOpen)
 
   return (
     <div>

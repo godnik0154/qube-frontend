@@ -21,6 +21,7 @@
 
 .dashboard-logo-cont .dashboard-logo {
     height: 2rem;
+    margin-left: 10px;
 }
 
 .dashboard-sidebar-items-cont {
@@ -243,6 +244,7 @@
     margin-right: 20px;
     background-color: #F2F2F2;
     color: #ED340B;
+    line-break: anywhere;
     padding-top: 4px;
     font-weight: 500;
     padding-bottom: 4px;
@@ -252,6 +254,7 @@
 
 .dashboard-maincontent-info-box-mainbox-link-icon{
     cursor: pointer;
+    margin-right: 5px;
 }
 
 .dashboard-sidebar-acc{

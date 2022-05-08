@@ -90,7 +90,7 @@ function ColorsSelect({mainColor, name, handleColorChange}) {
     )
 }
 
-function Homepage({handlePrev,handleNext}) {
+function Homepage({handlePrev,handleNext,showLoader}) {
 
     const initialFinalData = {
         profile: {
@@ -121,7 +121,16 @@ function Homepage({handlePrev,handleNext}) {
     const [imageName, setImageName] = React.useState(null);
     const [imgtype, setImgType] = React.useState(null);
     const [node, setNode] = React.useState(null);
-    const [dimension, setDimension] = React.useState([1,1])
+    const [dimension, setDimension] = React.useState([1,1]);
+
+    console.log(
+     showFile,
+     finalImage,
+     theName,
+     imageName,
+     imgtype,
+     node
+    )
 
     let clearAll = () => {
      setShowFile(null);
@@ -159,6 +168,8 @@ function Homepage({handlePrev,handleNext}) {
 
     let loadFile = async (name, event) => {
 
+        console.log('+++');
+
         try{
             let dat = URL.createObjectURL(
                 event.target.files[0]
@@ -167,7 +178,7 @@ function Homepage({handlePrev,handleNext}) {
             if(name=='profile'){
                 setDimension([1,1]);
             }else {
-                setDimension([5,2]);
+                setDimension([4,3]);
             }    
 
             let rest = event.target.files[0].name.substring(0, event.target.files[0].name.lastIndexOf(".")),
@@ -189,7 +200,8 @@ function Homepage({handlePrev,handleNext}) {
             // event.target.previousElementSibling.childNodes[0].style.opacity = 0;
         }
         catch(err){
-            console.log(err.message)
+                    console.log(err.message)        
+            clearAll();
         }
     };
 
@@ -202,6 +214,8 @@ function Homepage({handlePrev,handleNext}) {
             }
         })
     }
+
+    console.log(showFile);
 
     let checkNext = () => {
         if(finalErrors.profile){
@@ -272,7 +286,9 @@ function Homepage({handlePrev,handleNext}) {
                         Previous
                     </button>
                     <button className="btn onboarding-btn-next" onClick={(e)=>handleNext(finalData)} disabled={checkNext()}>
-                        Get Started
+                      {showLoader?<div className="login-loader-cont">
+                        <div className="login-loader-elmn"></div>
+                        </div>:<>Get Started</>}
                     </button>
                 </div>
                 <br /><br /><br />

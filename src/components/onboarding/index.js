@@ -75,7 +75,10 @@ function Onboarding() {
       ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + '%';
   }
 
+  const [showLoader,setShowLoader] = React.useState(false); 
+
   let handlePostData = async (postData) => {
+    setShowLoader(true);
     postData.firstName = postData.firstName.trim().toLowerCase();
     postData.lastName = postData.lastName.trim().toLowerCase();
     console.log(postData);
@@ -84,8 +87,8 @@ function Onboarding() {
 
     if(typeof data !== 'object') {
       toast.error(data);
+      setShowLoader(false);
     } else {
-      toast.success("User Data Updated Successfully");
       data.cover = typeof data.cover === 'string'?JSON.parse(data.cover):data.cover;
       data.profile = typeof data.profile === 'string'?JSON.parse(data.profile):data.profile;
       data.email = user.email;

@@ -130,30 +130,7 @@
     color: #fff;
 }
 
-.onboarding-homepage-part-profilePic:hover .onboarding-homepage-part-cam-button,
-.onboarding-homepage-part-coverPic:hover .onboarding-homepage-part-cam-button {
-    opacity: 0;
-}
 
-.onboarding-homepage-part-profilePic:hover .onboarding-homepage-part-profileiconLabel {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, .8);
-    z-index: 20;
-    color: #fafafa;
-    transition: background-color 0.2s ease-in-out;
-    border-radius: 100px;
-    margin-bottom: 0;
-    -webkit-border-radius: 100px;
-    -moz-border-radius: 100px;
-    -ms-border-radius: 100px;
-    -o-border-radius: 100px;
-    -webkit-transition: background-color 0.2s ease-in-out;
-    -moz-transition: background-color 0.2s ease-in-out;
-    -ms-transition: background-color 0.2s ease-in-out;
-    -o-transition: background-color 0.2s ease-in-out;
-}
 
 .onboarding-homepage-part-coverPic:hover .onboarding-homepage-part-covericonLabel {
     display: flex;
@@ -288,4 +265,32 @@
 
 .onboarding-homepage-part-colors-heading {
     text-align: center;
+}
+
+@media not all and  (hover: none) {
+
+    .onboarding-homepage-part-profilePic:hover .onboarding-homepage-part-cam-button,
+    .onboarding-homepage-part-coverPic:hover .onboarding-homepage-part-cam-button {
+        opacity: 0;
+    }
+
+    .onboarding-homepage-part-profilePic:hover .onboarding-homepage-part-profileiconLabel {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, .8);
+        z-index: 20;
+        color: #fafafa;
+        transition: background-color 0.2s ease-in-out;
+        border-radius: 100px;
+        margin-bottom: 0;
+        -webkit-border-radius: 100px;
+        -moz-border-radius: 100px;
+        -ms-border-radius: 100px;
+        -o-border-radius: 100px;
+        -webkit-transition: background-color 0.2s ease-in-out;
+        -moz-transition: background-color 0.2s ease-in-out;
+        -ms-transition: background-color 0.2s ease-in-out;
+        -o-transition: background-color 0.2s ease-in-out;
+    }
 }

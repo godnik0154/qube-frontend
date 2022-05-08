@@ -14,14 +14,6 @@ function Personal({ handleNext, finalDataToBack }) {
       color: '#fff',
     },
     {
-      name: 'twitter',
-      regex: /(www.twitter.com\/(?![a-zA-Z0-9_]+\/)([a-zA-Z0-9_]+))/,
-      placeholder: 'www.twitter.com/xyz',
-      icon: 'fa-brands fa-twitter',
-      background: '#1DA1F2',
-      color: '#fff',
-    },
-    {
       name: 'linkedin',
       regex: /www.linkedin\.com\/in\/[A-z0-9_-]+\/?/,
       placeholder: 'www.linkedin.com/in/xyz',
@@ -35,6 +27,14 @@ function Personal({ handleNext, finalDataToBack }) {
       regex: /www.youtube\.com\/c\/[A-z0-9_-]+\/?/,
       icon: 'fa-brands fa-youtube',
       background: '#FF0000',
+      color: '#fff',
+    },
+    {
+      name: 'twitter',
+      regex: /(www.twitter.com\/(?![a-zA-Z0-9_]+\/)([a-zA-Z0-9_]+))/,
+      placeholder: 'www.twitter.com/xyz',
+      icon: 'fa-brands fa-twitter',
+      background: '#1DA1F2',
       color: '#fff',
     },
     {
@@ -106,11 +106,11 @@ function Personal({ handleNext, finalDataToBack }) {
   const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
   const [optionSet, setOptionSet] = React.useState({
     facebook: true,
-    twitter: true,
     linkedin: true,
     youtube: true,
     instagram: true,
     pinterest: true,
+    twitter: true,
     github: true,
     gitlab: true,
     medium: true,
@@ -255,6 +255,8 @@ function Personal({ handleNext, finalDataToBack }) {
   const handleIndiSocChange = (value, index) => {
     let itemsTobeSet = [];
 
+    console.log(value, index);
+
     setOptionSet({
       ...optionSet,
       [value]: false,
@@ -367,6 +369,8 @@ function Personal({ handleNext, finalDataToBack }) {
 
     forceUpdate();
   };
+
+                                  console.log(optionSet)
 
   return (
     <div className="onboarding-personal-part">
@@ -516,12 +520,10 @@ function Personal({ handleNext, finalDataToBack }) {
                                 </div>
                                 <select
                                   className="onboarding-personal-part-soc-icons-list"
-                                  onChange={(e) =>
-                                    handleIndiSocChange(e.target.value, inde)
-                                  }
+                                  onChange={(e) => handleIndiSocChange(e.target.value, inde)}
                                 >
                                   {Object.keys(optionSet).map((item, ind) => {
-                                    return optionSet[item]?<option key={ind}>{item}</option>:null;
+                                    return optionSet[item]?<option selected="selected" key={ind}>{item}</option>:null;
                                   })}
                                 </select>
                               </div>

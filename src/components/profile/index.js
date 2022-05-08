@@ -4,6 +4,7 @@ import { API_URL } from '../../config';
 import axios from 'axios';
 import {useSelector} from 'react-redux';
 import {useParams} from "react-router-dom";
+import {Link} from 'react-router-dom';
 
 
 function pickTextColorBasedOnBgColorSimple(bgColor, lightColor, darkColor) {
@@ -131,7 +132,11 @@ function Profile(){
                             <div className="user-profile-body-part--1-profile-links">
                                 <div className="user-profile-body-part--1-profile-links-head-master">
                                     <p className="user-profile-body-part--1-profile-links-head">Links</p>
-                                    <div className="user-profile-body-part--1-profile-links-head-slave">See all</div>
+                                    <div className="user-profile-body-part--1-profile-links-head-slave">
+                                        <Link to={`/profile/links/${name}`}>
+                                            See all
+                                        </Link>
+                                    </div>
                                 </div>
                                 <div className="user-profile-body-part--1-profile-links--master">
                                     <div className="user-profile-body-part--1-profile-links-cont">
