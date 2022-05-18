@@ -171,7 +171,7 @@ function Dashboard() {
                 <div className='dashboard-maincontent-quicks-box-par'>
                   <div className='dashboard-maincontent-quicks-box'>
                     <div className='dashboard-maincontent-quicks-box-icon'>
-                      <i class="fa-light fa-money-bill"></i>
+                      <i className="fa-light fa-money-bill"></i>
                     </div>
                     <div className='dashboard-maincontent-quicks-box-goto'>
                       <div className='dashboard-maincontent-quicks-box-goto-text'>Create payment link</div>
@@ -184,7 +184,7 @@ function Dashboard() {
                 <div className='dashboard-maincontent-quicks-box-par'>
                   <div className='dashboard-maincontent-quicks-box'>
                     <div className='dashboard-maincontent-quicks-box-icon'>
-                      <i class="fa-light fa-plus"></i>
+                      <i className="fa-light fa-plus"></i>
                     </div>
                     <div className='dashboard-maincontent-quicks-box-goto'>
                       <div className='dashboard-maincontent-quicks-box-goto-text'>Add a product</div>
@@ -197,7 +197,7 @@ function Dashboard() {
                 <div className='dashboard-maincontent-quicks-box-par'>
                   <div className='dashboard-maincontent-quicks-box'>
                     <div className='dashboard-maincontent-quicks-box-icon'>
-                      <i class="fa-light fa-cube"></i>
+                      <i className="fa-light fa-cube"></i>
                     </div>
                     <div className='dashboard-maincontent-quicks-box-goto'>
                       <div className='dashboard-maincontent-quicks-box-goto-text'>Go to Products</div>
@@ -210,7 +210,7 @@ function Dashboard() {
                 <div className='dashboard-maincontent-quicks-box-par'>
                   <div className='dashboard-maincontent-quicks-box'>
                     <div className='dashboard-maincontent-quicks-box-icon'>
-                      <i class="fa-light fa-pencil"></i>
+                      <i className="fa-light fa-pencil"></i>
                     </div>
                     <div className='dashboard-maincontent-quicks-box-goto'>
                       <div className='dashboard-maincontent-quicks-box-goto-text'>Edit store page</div>

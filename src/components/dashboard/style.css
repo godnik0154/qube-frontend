@@ -141,6 +141,7 @@
 
 .dashboard-maincontent-header-name-greet span{
     font-weight: 600;
+    text-transform: capitalize;
 }
 
 .dashboard-maincontent-header-cta{
@@ -197,6 +198,7 @@
 .dashboard-maincontent-header-cta-btn-name{
     flex-grow: 1;
     text-align: center;
+    text-transform: capitalize;
 }
 .dashboard-maincontent-header-cta-btn-icon{
     padding: 5px;
