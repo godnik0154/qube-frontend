@@ -1,5 +1,7 @@
 import React from 'react';
 import './style.css';
+import { API_URL } from '../../../config';
+import axios from 'axios';
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
@@ -103,6 +105,7 @@ function Personal({ handleNext, finalDataToBack }) {
     },
   ];
 
+  const [brandList,setBrandList] = React.useState(null);
   const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
   const [optionSet, setOptionSet] = React.useState({
     facebook: true,
@@ -155,6 +158,19 @@ function Personal({ handleNext, finalDataToBack }) {
 
     setSelectedSocials(items);
   }
+
+  React.useEffect(()=>{
+
+    let fetcher = async () =>{
+      const data = await axios.get(`${API_URL}/onboarding/brands`);
+      console.log(data.data.data);
+      setBrandList(data.data.data);
+    }
+
+    fetcher();
+
+  },[])
+
 
   const handleButtonAdd = (e) => {
 
@@ -334,11 +350,29 @@ function Personal({ handleNext, finalDataToBack }) {
         });
       }
       else {
-        errorData[name] = '';
-        setMainData({
-          ...mainData,
-          [name]: value,
-        });
+
+        let valid = false;
+
+        for(let i in brandList){
+          if(brandList[i].trim().toLowerCase()===value.trim().toLowerCase()){
+            valid = true;
+            break;
+          }
+        }
+
+        if(valid){
+          errorData[name] = 'Sorry this brand name is already taken';
+          setMainData({
+            ...mainData,
+            [name]: value,
+          });
+        } else {
+          errorData[name] = '';
+          setMainData({
+            ...mainData,
+            [name]: value,
+          });
+        }
       }
     }
 
@@ -369,8 +403,6 @@ function Personal({ handleNext, finalDataToBack }) {
 
     forceUpdate();
   };
-
-                                  console.log(optionSet)
 
   return (
     <div className="onboarding-personal-part">
@@ -444,6 +476,12 @@ function Personal({ handleNext, finalDataToBack }) {
                   : '1px solid #ED340B',
             }}
           />
+          {errorData.brand.length !== 0 ? (
+            <div className="onboarding-personal-part-invalid-feedback">
+              <i className="fa-regular fa-circle-info"></i>
+              {errorData.brand}
+            </div>
+          ) : null}
         </div>
         <div className="onboarding-personal-part-inp-grp col-md-12">
           <label className="onboarding-personal-part-label">

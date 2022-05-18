@@ -75,19 +75,20 @@ function Onboarding() {
       ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + '%';
   }
 
-  const [showLoader,setShowLoader] = React.useState(false); 
+  const [showLoader,setShowLoader] = React.useState(false);
 
   let handlePostData = async (postData) => {
     setShowLoader(true);
-    postData.firstName = postData.firstName.trim().toLowerCase();
-    postData.lastName = postData.lastName.trim().toLowerCase();
-    console.log(postData);
+    postData.firstName = postData.firstName.trim().toLowerCase().trim();
+    postData.lastName = postData.lastName.trim().toLowerCase().trim();
+    postData.brand = postData.brand.toLowerCase().trim();
+
     const res = await axios.post(`${API_URL}/onboarding`,postData);
     const data = res.data.data;
 
+    setShowLoader(false);
     if(typeof data !== 'object') {
       toast.error(data);
-      setShowLoader(false);
     } else {
       data.cover = typeof data.cover === 'string'?JSON.parse(data.cover):data.cover;
       data.profile = typeof data.profile === 'string'?JSON.parse(data.profile):data.profile;
@@ -173,7 +174,7 @@ function Onboarding() {
           <Personal handleNext={handleNext} finalDataToBack={finalDataToBack} /> 
         </div>
         <div className="onboarding-form-step">
-          <Homepage handlePrev={handlePrev} handleNext={handleNext} />
+          <Homepage handlePrev={handlePrev} handleNext={handleNext} showLoader={showLoader} />
         </div>
       </div> 
     </div>
