@@ -5,8 +5,6 @@ import Login from './components/login';
 import Onboarding from './components/onboarding';
 import Dashboard from './components/dashboard';
 import CreatorDashboard from './components/creator/dashboard';
-import Profile from './components/profile';
-import ProfileLinks from './components/profile/links';
 import './App.css';
 
 function App() {
@@ -26,8 +24,6 @@ function App() {
       <Route path="/signup" exact element={<Signup />} />
       <Route path="/login" exact element={<Login />} />
       <Route path="/creator/dashboard" exact element={<CreatorDashboard />} />
-      <Route path="/profile/:name" element={<Profile />} />
-      <Route path="/profile/links/:name" element={<ProfileLinks />} />
       <Route path="/" element={<Navigate replace to="/login" />} />
     </Routes>
   );

@@ -49,7 +49,7 @@ function Dashboard() {
     navigate('/login');
   }
 
-  const profileUrl = `${window.location.host}/profile/${firstName.toLocaleLowerCase()}_${lastName.toLocaleLowerCase()}`;
+  const profileUrl = `https://master.d3nte65wno0egt.amplifyapp.com/${user.brand.replaceAll(' ','_')}`;
 
   const handleSidebarOpen = (e) => {
     setSidebarOpen(!sidebarOpen);
