@@ -49,7 +49,7 @@ function Dashboard() {
     navigate('/login');
   }
 
-  const profileUrl = `https://master.d3nte65wno0egt.amplifyapp.com/${user.brand.replaceAll(' ','_')}`;
+  const profileUrl = `https://my.qube.so/${user.brand.replaceAll(' ','_')}`;
 
   const handleSidebarOpen = (e) => {
     setSidebarOpen(!sidebarOpen);
@@ -58,6 +58,10 @@ function Dashboard() {
   const handleCopy = (e) => {
     navigator.clipboard.writeText(profileUrl);
     toast.success("Profile Url Copied");
+  }
+
+  let goToProfile = () => {
+    window.open(profileUrl,'_blank')
   }
 
   return (
@@ -147,7 +151,7 @@ function Dashboard() {
                   <p className="dashboard-maincontent-info-box-mainbox-head">Share your website link</p>
                   <p className="dashboard-maincontent-info-box-mainbox-subhead">Add store link to your social media bio. Let your audience discover your products, services and join your community from the link below</p>
                   <div className="dashboard-maincontent-info-box-mainbox-link">
-                    <div className="dashboard-maincontent-info-box-mainbox-link-box">
+                    <div onClick={goToProfile} className="dashboard-maincontent-info-box-mainbox-link-box" title={profileUrl}>
                       {profileUrl}
                     </div>
                     <div className="dashboard-maincontent-info-box-mainbox-link-icon" onClick={handleCopy}>

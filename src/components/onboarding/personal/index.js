@@ -354,7 +354,7 @@ function Personal({ handleNext, finalDataToBack }) {
         let valid = false;
 
         for(let i in brandList){
-          if(brandList[i].trim().toLowerCase()===value.trim().toLowerCase()){
+          if(brandList[i].trim().replaceAll(" ","").toLowerCase()===value.trim().replaceAll(" ","").toLowerCase()){
             valid = true;
             break;
           }

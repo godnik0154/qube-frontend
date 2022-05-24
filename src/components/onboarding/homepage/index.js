@@ -175,7 +175,7 @@ function Homepage({handlePrev,handleNext,showLoader}) {
                 event.target.files[0]
             );
 
-            if(name=='profile'){
+            if(name==='profile'){
                 setDimension([1,1]);
             }else {
                 setDimension([4,3]);
