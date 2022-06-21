@@ -10,6 +10,8 @@
 
 .dashboard-maincontent{
     flex-grow: 1;
+    width: 85%;
+    overflow: hidden;
 }
 
 .dashboard-logo-cont {
@@ -253,11 +255,28 @@
     padding-bottom: 4px;
     padding-left: 15px;
     border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.dashboard-maincontent-info-box-mainbox-link-box-input{
+    background-color: transparent;
+    width: 100%;
+    border: 0;
+    outline: none;
+    color: inherit;
 }
 
 .dashboard-maincontent-info-box-mainbox-link-icon{
     cursor: pointer;
-    margin-right: 5px;
+    margin-right: 20px;
+}
+
+.dashboard-maincontent-info-box-mainbox-link-icon-edit{
+    cursor: pointer;
+    margin-right: 10px;
 }
 
 .dashboard-sidebar-acc{

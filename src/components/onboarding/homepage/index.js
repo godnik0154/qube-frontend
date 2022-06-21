@@ -9,13 +9,13 @@ let getImage = async (url) => {
 
     let promise = new Promise(async (resolve, reject)=>{
         reader.onloadend = () => {
-          const base64data = reader.result;                
+          const base64data = reader.result;
           resolve(base64data);
         }
 
         const response = await fetch(url)
         const imageBlob = await response.blob()
-        reader.readAsDataURL(imageBlob);  
+        reader.readAsDataURL(imageBlob);
     })
 
     let res = await promise;
@@ -141,34 +141,39 @@ function Homepage({handlePrev,handleNext,showLoader}) {
      setNode(null);
     }
 
-    React.useEffect(async ()=>{
-        if(finalImage){
-            if(theName === 'profile')
-            {
-                setFinalError({
-                    profile: true
-                })
-            }
-    
-            setFinalData({
-                ...finalData,
-                [theName]: {
-                    name: imageName,
-                    image: await getImage(finalImage),
-                    type: imgtype
-                }
-            });
+    React.useEffect(()=>{
 
-            node.target.nextElementSibling.style.backgroundImage = `url(${finalImage})`;
-            node.target.nextElementSibling.style.backgroundColor = 'unset';
-            node.target.previousElementSibling.childNodes[0].style.opacity = 0;
-            clearAll();
+        let doWork = async () => {
+            if(finalImage){
+                if(theName === 'profile')
+                {
+                    setFinalError({
+                        profile: true
+                    })
+                }
+
+                setFinalData({
+                    ...finalData,
+                    [theName]: {
+                        name: imageName,
+                        image: await getImage(finalImage),
+                        type: imgtype
+                    }
+                });
+
+                node.target.nextElementSibling.style.backgroundImage = `url(${finalImage})`;
+                node.target.nextElementSibling.style.backgroundColor = 'unset';
+                node.target.previousElementSibling.childNodes[0].style.opacity = 0;
+                clearAll();
+            }
         }
+
+        doWork();
+
     },[finalImage])
 
     let loadFile = async (name, event) => {
 
-        console.log('+++');
 
         try{
             let dat = URL.createObjectURL(
@@ -179,7 +184,7 @@ function Homepage({handlePrev,handleNext,showLoader}) {
                 setDimension([1,1]);
             }else {
                 setDimension([4,3]);
-            }    
+            }
 
             let rest = event.target.files[0].name.substring(0, event.target.files[0].name.lastIndexOf(".")),
                 last = event.target.files[0].name.substring(event.target.files[0].name.lastIndexOf("."), event.target.files[0].name.length);
@@ -200,7 +205,6 @@ function Homepage({handlePrev,handleNext,showLoader}) {
             // event.target.previousElementSibling.childNodes[0].style.opacity = 0;
         }
         catch(err){
-                    console.log(err.message)        
             clearAll();
         }
     };
