@@ -27,12 +27,27 @@ function Dashboard() {
   React.useEffect(()=>{
     document.querySelectorAll(".dashboard-sidebar-item").forEach(key=>{
       key.addEventListener("click",e=>{
+
+        if(key.childNodes[1].textContent.toLowerCase()==="account") return;
+
         document.querySelectorAll(".dashboard-sidebar-item").forEach(item=>{
           item.classList.remove('active');
         });
 
         key.classList.add('active');
         setPage(key.childNodes[1].textContent.toLowerCase());
+      })
+    })
+
+    document.querySelectorAll(".sidebar-dashboard-item").forEach(key=>{
+      key.addEventListener("click",e=>{
+        document.querySelectorAll(".dashboard-sidebar-item").forEach(item=>{
+          item.classList.remove('active');
+        });
+
+        key.parentNode.classList.add('active');
+        setPage(key.childNodes[1].textContent.toLowerCase());
+        setSidebarOpen(false)
       })
     })
   },[])

@@ -333,12 +333,20 @@
     margin-bottom: 1rem;
     transition: all .5s;
     padding: .5rem;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -ms-transition: all .5s;
+    -o-transition: all .5s;
 }
 
 .sidebar-dashboard-item:hover{
     border-radius: 10px;
     background-color: #0085FF;
     color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
 }
 
 .sidebar-dashboard-item-icon{
@@ -349,6 +357,7 @@
 
 .sidebar-dashboard-item-info{
     flex-grow: 1;
+    margin-top: 3px;
     margin-bottom: 0;
 }
 
