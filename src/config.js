@@ -1,4 +1,4 @@
-let environment = true;
+let environment = false;
 
 const moduleConfig = {
     PROD_API_URL: 'https://backend.qube.so',

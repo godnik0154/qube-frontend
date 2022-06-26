@@ -89,7 +89,7 @@ function Profile({
     const [countdownInterval,setCountDownInterval] = React.useState(180);
 
     const [errors,setErrors] = React.useState({
-        email: false,
+        email: emailValid,
         phone: false,
         emailOtp: false,
         passwordMatch: false
@@ -137,10 +137,11 @@ function Profile({
 
         if(e.target.name==="email"){
             var filter = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
-            let val = String(e.target.value).search(filter) !== -1
+            let val = String(e.target.value).search(filter) !== -1;
+            let emailSame = e.target.value === email && emailValid;
             setErrors({
                 ...errors,
-                email: !val
+                email: !val || emailSame
             });
         }
     }
@@ -163,7 +164,7 @@ function Profile({
                 if(key!==e){
                     key.parentElement.parentElement.style.opacity = 1;
                     key.parentElement.parentElement.style.pointerEvents = 'all';
-                    key.parentElement.parentElement.style.userSelect = 'all';
+                    key.parentElement.parentElement.style.userSelect = 'auto';
                 }
             })
 
