@@ -56,7 +56,7 @@ function Profile({
     const verifyToOtp = async () => {
         if(finalState.emailOtp.length!==6) return false;
         let res = await axios.post(`${API_URL}/verify/mail`,{
-            email: finalState.email,
+            email: email,
             newemail: finalState.email,
             sampleotp: parseInt(finalState.emailOtp)
         });
@@ -92,6 +92,7 @@ function Profile({
         email: emailValid,
         phone: false,
         emailOtp: false,
+        controlEmal: false,
         passwordMatch: false
     })
 
@@ -141,7 +142,8 @@ function Profile({
             let emailSame = e.target.value === email && emailValid;
             setErrors({
                 ...errors,
-                email: !val || emailSame
+                email: !val || emailSame,
+                emailControl: !val || emailSame,
             });
         }
     }
@@ -261,8 +263,6 @@ function Profile({
                     profile: temp
                 });
 
-                console.log(res)
-
                 if(res.status===200){
                     toast.success('Profile Image Updated Successfully');
                     dispatch(updateUserDetails({
@@ -315,6 +315,10 @@ function Profile({
 
         if(e.target.textContent.toLocaleLowerCase()==="verify"){
             let val = await requestToOtp();
+            setErrors({
+                ...errors,
+                emailControl: false
+            })
             if(val==="Email Sent"){
                 let interval = setInterval(() => {
                     setCountDown(countdown => countdown -1);
@@ -327,6 +331,10 @@ function Profile({
             } else {
                 toast.error('Server Error');
             }
+            setErrors({
+                ...errors,
+                emailControl: true
+            })
         } else {
             clearInterval(countdownInterval);
             setCountDownInterval(null);
@@ -350,6 +358,8 @@ function Profile({
                 }));
 
                 toast.success("Email Verified Successfully");
+
+                handleExpand(e.target.parentElement.parentElement.parentElement.previousElementSibling.childNodes[1]);
             } else
                 toast.error("Otp is Invalid");
         }
@@ -403,6 +413,7 @@ function Profile({
     }
 
     let handleGenderSubmit = async (e) => {
+        console.log(finalState.email)
         let res = await axios.post(`${API_URL}/profile/general`,{
             email: finalState.email,
             field: 'gender',
@@ -678,7 +689,7 @@ function Profile({
                                                     {phase===2?<div className="dashboard-profile-information--box-head__dob--value_unedited_inp-parent_box--timer">Time Remaning: {countdown} seconds</div>:null}
                                                 </div>
                                             </div>
-                                            <div className={`dashboard-profile-information--box-head__fullname--value_unedited_inp-parent_child_btn ${errors.email?"valis":""}`} onClick={takeEmailAction}>
+                                            <div className={`dashboard-profile-information--box-head__fullname--value_unedited_inp-parent_child_btn ${errors.email && errors.emailControl?"valis":""}`} onClick={takeEmailAction}>
                                                 {phase===1?<>Verify</>:<>Submit</>}
                                             </div>
                                         </div>
