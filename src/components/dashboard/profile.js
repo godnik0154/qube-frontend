@@ -108,6 +108,15 @@ function Profile({
         });
 
         if(e.target.name==="confirmed"){
+
+            if(tempPassword.original===tempPassword.new){
+                setErrors({
+                    ...errors,
+                    passwordMatch: true
+                });
+                return;
+            }
+
             if(e.target.value===tempPassword.new){
                 setErrors({
                     ...errors,
@@ -143,7 +152,7 @@ function Profile({
             setErrors({
                 ...errors,
                 email: !val || emailSame,
-                emailControl: !val || emailSame,
+                control: !val || emailSame,
             });
         }
     }
@@ -313,12 +322,13 @@ function Profile({
     let takeEmailAction = async (e) => {
         // let inputBox = e.target.previousElementSibling.childNodes[0].childNodes[0];
 
+        setErrors({
+            ...errors,
+            control: true
+        })
+
         if(e.target.textContent.toLocaleLowerCase()==="verify"){
             let val = await requestToOtp();
-            setErrors({
-                ...errors,
-                emailControl: false
-            })
             if(val==="Email Sent"){
                 let interval = setInterval(() => {
                     setCountDown(countdown => countdown -1);
@@ -331,10 +341,6 @@ function Profile({
             } else {
                 toast.error('Server Error');
             }
-            setErrors({
-                ...errors,
-                emailControl: true
-            })
         } else {
             clearInterval(countdownInterval);
             setCountDownInterval(null);
@@ -342,11 +348,6 @@ function Profile({
             if(val)
             {
                 setPhase(1);
-                setVerifiedData({
-                    ...verifiedData,
-                    email: true
-                })
-
                 dispatch(updateUserDetails({
                     field: 'email',
                     value: finalState.email
@@ -363,6 +364,11 @@ function Profile({
             } else
                 toast.error("Otp is Invalid");
         }
+
+        setErrors({
+            ...errors,
+            control: false
+        })
     }
 
     function validPassword(e) {
@@ -370,6 +376,10 @@ function Profile({
       }
 
     let handleNameSubmit = async (e) => {
+        setErrors({
+            ...errors,
+            control: true
+        })
         let res = await axios.post(`${API_URL}/profile/general`,{
             email: finalState.email,
             field: 'firstName',
@@ -380,6 +390,10 @@ function Profile({
 
         if(data!==true){
             toast.error('Email is invalid');
+            setErrors({
+                ...errors,
+                control: false
+            })
             return;
         }
 
@@ -393,6 +407,10 @@ function Profile({
 
         if(data!==true){
             toast.error('Email is invalid');
+            setErrors({
+                ...errors,
+                control: false
+            })
             return;
         }
 
@@ -406,14 +424,23 @@ function Profile({
             value: finalState.lastName
         }));
 
+        setErrors({
+            ...errors,
+            control: false
+        })
 
         handleExpand(e.target.parentElement.parentElement.previousElementSibling.childNodes[1]);
 
         toast.success("Name Updated Successfully");
     }
 
+    // console.log(errors.passwordMatch,"{{}")
+
     let handleGenderSubmit = async (e) => {
-        console.log(finalState.email)
+        setErrors({
+            ...errors,
+            control: true
+        })
         let res = await axios.post(`${API_URL}/profile/general`,{
             email: finalState.email,
             field: 'gender',
@@ -424,6 +451,10 @@ function Profile({
 
         if(data!==true){
             toast.error('Email is invalid');
+            setErrors({
+                ...errors,
+                control: false
+            })
             return;
         }
 
@@ -434,10 +465,19 @@ function Profile({
             value: finalState.gender
         }));
 
+        setErrors({
+            ...errors,
+            control: false
+        })
+
         handleExpand(e.target.parentElement.parentElement.parentElement.previousElementSibling.childNodes[1]);
     }
 
     let handleDobSubmit = async (e) => {
+        setErrors({
+            ...errors,
+            control: true
+        })
         let res = await axios.post(`${API_URL}/profile/general`,{
             email: finalState.email,
             field: 'dob',
@@ -448,6 +488,10 @@ function Profile({
 
         if(data!==true){
             toast.error('Email is invalid');
+            setErrors({
+                ...errors,
+                control: false
+            })
             return;
         }
 
@@ -458,15 +502,26 @@ function Profile({
 
         toast.success("Date of Birth Updated Successfully");
 
-
+        setErrors({
+            ...errors,
+            control: false
+        })
         handleExpand(e.target.parentElement.parentElement.parentElement.previousElementSibling.childNodes[1]);
     }
 
     let handlePasswordSubmit = async (e) => {
 
+        setErrors({
+            ...errors,
+            control: true
+        })
 
         if(validPassword(tempPassword.new)===false){
             toast.error('Make sure your password minimum length is 6 and it doesn\'t contains space')
+            setErrors({
+                ...errors,
+                control: false
+            })
             return;
         }
 
@@ -479,6 +534,10 @@ function Profile({
 
         if(data!==true){
             toast.error('Original Password is invalid');
+            setErrors({
+                ...errors,
+                control: false
+            })
             return;
         }
 
@@ -491,8 +550,17 @@ function Profile({
 
         if(data!==true){
             toast.error('Server Error');
+            setErrors({
+                ...errors,
+                control: false
+            })
             return;
         }
+
+        setErrors({
+            ...errors,
+            control: false
+        })
 
         toast.success('Password Successfully Changed');
     }
@@ -584,7 +652,7 @@ function Profile({
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className={`dashboard-profile-information--box-head__fullname--value_unedited_inp-parent_child_btn ${finalState.firstName==="" || finalState.lastName===""?"valis":""}`} onClick={handleNameSubmit}>
+                                        <div className={`dashboard-profile-information--box-head__fullname--value_unedited_inp-parent_child_btn ${finalState.firstName==="" || errors.control || finalState.lastName===""?"valis":""}`} onClick={handleNameSubmit}>
                                             Save
                                         </div>
                                     </div>
@@ -613,7 +681,7 @@ function Profile({
                                                     <i className="dashboard-profile-information--box-head__dob--value_unedited_inp-parent_box-icon fa-thin fa-calendar"></i>
                                                 </div>
                                             </div>
-                                            <div className={`dashboard-profile-information--box-head__fullname--value_unedited_inp-parent_child_btn ${finalState.dob===""?"valis":""}`} onClick={handleDobSubmit}>
+                                            <div className={`dashboard-profile-information--box-head__fullname--value_unedited_inp-parent_child_btn ${finalState.dob==="" || errors.control?"valis":""}`} onClick={handleDobSubmit}>
                                                 Save
                                           </div>
                                         </div>
@@ -649,7 +717,7 @@ function Profile({
                                                     </details>
                                                 </div>
                                             </div>
-                                            <div className="dashboard-profile-information--box-head__fullname--value_unedited_inp-parent_child_btn" onClick={handleGenderSubmit}>
+                                            <div className={`dashboard-profile-information--box-head__fullname--value_unedited_inp-parent_child_btn ${errors.control?"valis":""}`} onClick={handleGenderSubmit}>
                                                 Save
                                             </div>
                                         </div>
@@ -689,7 +757,7 @@ function Profile({
                                                     {phase===2?<div className="dashboard-profile-information--box-head__dob--value_unedited_inp-parent_box--timer">Time Remaning: {countdown} seconds</div>:null}
                                                 </div>
                                             </div>
-                                            <div className={`dashboard-profile-information--box-head__fullname--value_unedited_inp-parent_child_btn ${errors.email && errors.emailControl?"valis":""}`} onClick={takeEmailAction}>
+                                            <div className={`dashboard-profile-information--box-head__fullname--value_unedited_inp-parent_child_btn ${errors.email && errors.control || email===finalState.email?"valis":""}`} onClick={takeEmailAction}>
                                                 {phase===1?<>Verify</>:<>Submit</>}
                                             </div>
                                         </div>
@@ -732,11 +800,13 @@ function Profile({
                                                 <div className={`dashboard-profile-information--box-head__fullname--value_unedited_inp-parent_box ${errors.passwordMatch?"invalid-box":""}`}>
                                                     <input type="password" className="dashboard-profile-information--box-head__fullname--value_unedited_inp-parent_box_input" value={tempPassword.confirmed} name='confirmed' onChange={handlePasswordChange}/>
                                                 </div>
-                                                {errors.passwordMatch?<div className="dashboard-profile-information--box-head__dob--value_unedited_inp-parent_box--help err">
+                                                {tempPassword.original===tempPassword.new && tempPassword.new!==""?<div className="dashboard-profile-information--box-head__dob--value_unedited_inp-parent_box--help err">
+                                                    Original Password can't be same as new password
+                                                </div>:errors.passwordMatch?<div className="dashboard-profile-information--box-head__dob--value_unedited_inp-parent_box--help err">
                                                     The above two password doesn't match
                                                 </div>:null}
                                             </div>
-                                            <div className={`dashboard-profile-information--box-head__fullname--value_unedited_inp-parent_child_btn ${tempPassword.original==="" || tempPassword.new==="" || tempPassword.confirmed==="" || errors.passwordMatch?'valis':''}`} onClick={handlePasswordSubmit}>
+                                            <div className={`dashboard-profile-information--box-head__fullname--value_unedited_inp-parent_child_btn ${tempPassword.original==="" || tempPassword.new==="" || tempPassword.confirmed==="" || errors.passwordMatch || errors.control?'valis':''}`} onClick={handlePasswordSubmit}>
                                                 Save
                                             </div>
                                         </div>
